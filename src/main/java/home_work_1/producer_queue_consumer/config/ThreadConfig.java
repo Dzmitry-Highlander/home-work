@@ -20,12 +20,15 @@ public class ThreadConfig {
                 nThreads);
 
         Future<?> future = executor.submit(new ProducerSupplier(queue));
-        try {
-            future.get();
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
+
+        while (!Thread.currentThread().isInterrupted()) {
+            try {
+                future.get();
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            }
         }
 
         for (; nThreads > 0; nThreads--) {
