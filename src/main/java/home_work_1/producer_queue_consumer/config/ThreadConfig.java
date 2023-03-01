@@ -19,7 +19,15 @@ public class ThreadConfig {
         ExecutorService executor = Executors.newFixedThreadPool(
                 nThreads);
 
-        executor.execute(new ProducerSupplier(queue));
+        Future<?> future = executor.submit(new ProducerSupplier(queue));
+
+        try {
+            future.get();
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
 
         for (; nThreads > 0; nThreads--) {
             executor.execute(new ConsumerJob(queue));

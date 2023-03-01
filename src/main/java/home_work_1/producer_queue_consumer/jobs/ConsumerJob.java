@@ -15,10 +15,10 @@ public class ConsumerJob implements Runnable {
 
     @Override
     public void run() {
-        while (!Thread.currentThread().isInterrupted()) {
+        while (!Thread.currentThread().isInterrupted() && queue.peek() != null) {
             FileUtil fileUtil = new FileUtil("log.txt");
 
-            while (queue.peek() != null) {
+            while (queue.peek() != null && queue.peek() != -1) {
                 int time = queue.poll();
 
                 sleep(time);
