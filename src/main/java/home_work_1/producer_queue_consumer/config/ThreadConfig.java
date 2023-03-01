@@ -12,7 +12,7 @@ public class ThreadConfig {
 
     public ThreadConfig(Integer nThreads) {
         this.nThreads = nThreads;
-        this.queue = new PriorityBlockingQueue<>();
+        this.queue = new LinkedBlockingQueue<>();
     }
 
     public void start() {
@@ -21,7 +21,7 @@ public class ThreadConfig {
 
         Future<?> future = executor.submit(new ProducerSupplier(queue));
 
-        while (!Thread.currentThread().isInterrupted()) {
+        while (Thread.currentThread().isInterrupted()) {
             try {
                 future.get();
             } catch (InterruptedException e) {

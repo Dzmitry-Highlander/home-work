@@ -16,7 +16,7 @@ public class ConsumerJob implements Runnable {
     @Override
     public void run() {
         while (!Thread.currentThread().isInterrupted()) {
-            FileUtil fileUtil = new FileUtil("dir/log.txt");
+            FileUtil fileUtil = new FileUtil("log.txt");
 
             while (queue.peek() != null) {
                 int time = queue.poll();
