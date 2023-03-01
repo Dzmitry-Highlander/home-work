@@ -17,7 +17,7 @@ public class ProducerSupplier implements Runnable {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Enter an positive Integer: ");
 
-        while (scanner.hasNext()) {
+        while (scanner.hasNext() && !Thread.currentThread().isInterrupted()) {
             if (scanner.hasNextInt()) {
                 int time = scanner.nextInt();
 
@@ -37,6 +37,7 @@ public class ProducerSupplier implements Runnable {
             }
         }
 
+        Thread.currentThread().interrupt();
         scanner.close();
     }
 
