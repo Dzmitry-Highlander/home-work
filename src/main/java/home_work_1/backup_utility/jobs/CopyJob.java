@@ -19,7 +19,7 @@ public class CopyJob implements Runnable {
 
     @Override
     public void run() {
-        if (!destinationDir.toFile().exists()) {
+        if (!destinationDir.toFile().exists() && destinationDir.toFile().isDirectory()) {
             destinationDir.toFile().mkdirs();
         }
 
