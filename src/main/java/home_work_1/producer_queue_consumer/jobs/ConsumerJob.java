@@ -15,17 +15,19 @@ public class ConsumerJob implements Runnable {
 
     @Override
     public void run() {
-        FileUtil fileUtil = new FileUtil("dir/log.txt");
+        while (!Thread.currentThread().isInterrupted()) {
+            FileUtil fileUtil = new FileUtil("dir/log.txt");
 
-        while (queue.peek() != null) {
-            int time = queue.poll();
+            while (queue.peek() != null) {
+                int time = queue.poll();
 
-            sleep(time);
-            fileUtil.write("I slept " + time + " second(s)");
+                sleep(time);
+                fileUtil.write("I slept " + time + " second(s)");
+            }
+
+            fileUtil.write("...");
+            sleep(1);
         }
-
-        fileUtil.write("...");
-        sleep(1);
     }
 
     private void sleep(int sec) {
