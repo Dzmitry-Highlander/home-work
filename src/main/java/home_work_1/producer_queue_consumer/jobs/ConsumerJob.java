@@ -32,7 +32,7 @@ public class ConsumerJob implements Runnable {
         try {
             TimeUnit.SECONDS.sleep(sec);
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            Thread.currentThread().interrupt();
         }
     }
 }
