@@ -2,7 +2,6 @@ package home_work_2.file_util.utils;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /** Класс утилита для работы с текстовыми файлами
@@ -86,6 +85,17 @@ public class FileUtil {
                 stringList.add(word);
             }
         }
+
+        return stringList;
+    }
+
+    /** Возвращает список слов, для которых последняя буква совпадает с первой буквой следующего за ним слова
+     * @param source путь к исходному файлу
+     * @return список слов
+     */
+    public List<String> listOfCoincidences(String source) {
+        List<String> stringList = new ArrayList<>();
+        StringBuilder tmp = new StringBuilder();
 
         return stringList;
     }
