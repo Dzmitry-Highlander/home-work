@@ -55,7 +55,7 @@ public class FileUtil {
 
     /** Возвращает список слов начинающихся с гласной буквы
      * @param source путь к исходному файлу
-     * @return список строк
+     * @return список слов
      */
     public List<String> listOfVowelWords(String source) {
         List<String> stringList = new ArrayList<>();
