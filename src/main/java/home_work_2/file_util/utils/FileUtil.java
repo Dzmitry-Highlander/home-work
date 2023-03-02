@@ -1,13 +1,14 @@
 package home_work_2.file_util.utils;
 
 import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 
-/** Класс утилита FileUtil
+/** Класс утилита
  @author Dzmitry Krasiuk
  */
 public class FileUtil {
-    /** Метод, который принимает пути к двум файлам. Метод переписывает содержимое одного файла в другой файл, но
-     * только в ВЕРХНЕМ РЕГИСТРЕ
+    /** Переписывает содержимое одного файла в другой файл, в ВЕРХНЕМ РЕГИСТРЕ
      * @param source путь к исходному файлу
      * @param destination путь к результирующему файлу
      */
@@ -18,7 +19,7 @@ public class FileUtil {
             String symbol;
 
             while ((symbol = reader.readLine()) != null) {
-                result.append(symbol.toUpperCase());
+                result.append(symbol.toUpperCase()).append("\n");
             }
 
             System.out.println(result);
@@ -33,7 +34,25 @@ public class FileUtil {
         }
     }
 
-    public void listOfStrings(String source) {
+    /** Возвращает список строк для исходного файла
+     * @param source путь к исходному файлу
+     * @return список строк файла
+     */
+    public List<String> listOfStrings(String source) {
+        List<String> stringList = new ArrayList<>();
 
+        try (BufferedReader reader = new BufferedReader(new FileReader(source))) {
+            String symbol;
+
+            while ((symbol = reader.readLine()) != null) {
+                stringList.add(symbol);
+            }
+
+            System.out.println(stringList);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        return stringList;
     }
 }
