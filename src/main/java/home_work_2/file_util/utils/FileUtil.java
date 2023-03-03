@@ -2,7 +2,6 @@ package home_work_2.file_util.utils;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /** Класс утилита для работы с текстовыми файлами
@@ -21,14 +20,14 @@ public class FileUtil {
             String symbol;
 
             while ((symbol = reader.readLine()) != null) {
-                result.append(symbol.toUpperCase()).append("\n");
+                result.append(symbol).append("\n");
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
 
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(destination))) {
-            writer.write(result.toString());
+            writer.write(result.toString().toUpperCase());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
