@@ -1,8 +1,7 @@
 package home_work_2.file_util.utils;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 /**
  * Класс утилита для работы с текстовыми файлами
@@ -87,12 +86,7 @@ public class FileUtil {
             if (word.charAt(0) == 'a' || word.charAt(0) == 'e' || word.charAt(0) == 'i'
                     || word.charAt(0) == 'o' || word.charAt(0) == 'u' || word.charAt(0) == 'y' || word.charAt(0) == 'A'
                     || word.charAt(0) == 'E' || word.charAt(0) == 'I' || word.charAt(0) == 'O' || word.charAt(0) == 'U'
-                    || word.charAt(0) == 'Y' || word.charAt(0) == 'а' || word.charAt(0) == 'у' || word.charAt(0) == 'о'
-                    || word.charAt(0) == 'ы' || word.charAt(0) == 'э' || word.charAt(0) == 'я' || word.charAt(0) == 'ю'
-                    || word.charAt(0) == 'ё' || word.charAt(0) == 'и' || word.charAt(0) == 'е' || word.charAt(0) == 'А'
-                    || word.charAt(0) == 'У' || word.charAt(0) == 'О' || word.charAt(0) == 'Ы' || word.charAt(0) == 'Э'
-                    || word.charAt(0) == 'Я' || word.charAt(0) == 'Ю' || word.charAt(0) == 'Ё' || word.charAt(0) == 'И'
-                    || word.charAt(0) == 'Е') {
+                    || word.charAt(0) == 'Y') {
                 stringList.add(word);
             }
         }
@@ -102,7 +96,6 @@ public class FileUtil {
 
     /**
      * Возвращает список слов, для которых последняя буква совпадает с первой буквой следующего за ним слова
-     *
      * @param source путь к исходному файлу
      * @return список слов
      * @throws RuntimeException, если происходит ошибка Ввода/Вывода
@@ -130,7 +123,6 @@ public class FileUtil {
             }
         }
 
-        System.out.println(stringList);
         return stringList;
     }
 
@@ -171,11 +163,10 @@ public class FileUtil {
                             newSeq = false;
                         } else if (arrayList.get(i) > arrayList.get(i - 1) && !newSeq) {
                             tmp.append(" ").append(arrayList.get(i));
-                            if (tmp.toString().length() >= result.length()) {
-                                result = tmp.toString();
-                            }
                         }
                     }
+
+                    System.out.println(tmp);
                 }
 
                 if (result.length() > 0)stringList.add(result);
@@ -185,5 +176,44 @@ public class FileUtil {
         }
 
         return stringList;
+    }
+
+    /**
+     * Возвращает частоту повторяемости всех букв в тексте, игнорируя регистр
+     *
+     * @param source путь к исходному файлу
+     * @return HashMap с повторяемостью каждой буквы в тексте
+     * @throws RuntimeException, если происходит ошибка Ввода/Вывода
+     */
+    public Map<Character, Integer> frequency(String source) {
+        Map<Character, Integer> map = new HashMap<>();
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(source))) {
+            String symbol;
+            StringBuilder builder = new StringBuilder();
+
+            while ((symbol = reader.readLine()) != null) {
+                builder.append(symbol).append("\n");
+            }
+
+            String[] strings = builder.toString().toLowerCase().split("");
+            char letter = 'a';
+            int counter = 0;
+
+            while (letter <= 'z') {
+                for (String ch : strings) {
+                    if (letter == ch.charAt(0)) {
+                        map.put(letter, ++counter);
+                    }
+                }
+
+                letter++;
+                counter = 0;
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        return map;
     }
 }
