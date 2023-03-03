@@ -141,7 +141,7 @@ public class FileUtil {
 
             while ((symbol = reader.readLine()) != null) {
                 ArrayList<Integer> arrayList = new ArrayList<>();
-                String[] strings = symbol.split("\\s");
+                String[] strings = symbol.split("\\W");
 
                 for (String string : strings) {
                     if (string.charAt(0) >= '0' && string.charAt(0) <= '9') {
@@ -185,7 +185,7 @@ public class FileUtil {
      * @return HashMap с повторяемостью каждой буквы в тексте
      * @throws RuntimeException, если происходит ошибка Ввода/Вывода
      */
-    public Map<Character, Integer> frequency(String source) {
+    public Map<Character, Integer> frequencyLetters(String source) {
         Map<Character, Integer> map = new HashMap<>();
 
         try (BufferedReader reader = new BufferedReader(new FileReader(source))) {
@@ -210,6 +210,48 @@ public class FileUtil {
                 letter++;
                 counter = 0;
             }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        return map;
+    }
+
+    /**
+     * Возвращает частоту повторяемости всех слов в тексте в порядке возрастания частоты повторяемости
+     *
+     * @param source путь к исходному файлу
+     * @return HashMap с повторяемостью каждой буквы в тексте
+     * @throws RuntimeException, если происходит ошибка Ввода/Вывода
+     */
+
+    public Map<String, Integer> frequencyWords(String source) {
+        Map<String, Integer> map = new HashMap<>();
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(source))) {
+            String symbol;
+            StringBuilder builder = new StringBuilder();
+
+            while ((symbol = reader.readLine()) != null) {
+                builder.append(symbol).append("\n");
+            }
+
+            String[] strings = builder.toString().toLowerCase().split("\\W");
+            String word = "";
+            int counter = 0;
+
+            do {
+                for (String s : strings) {
+                    word = s;
+                    for (String string : strings) {
+                        if (Objects.equals(string, word)) {
+                            map.put(word, ++counter);
+                        }
+                    }
+
+                    counter = 0;
+                }
+            } while (!Objects.equals(word, strings[strings.length - 1]));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
