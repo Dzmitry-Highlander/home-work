@@ -34,19 +34,11 @@ public class FileUtil {
      * @throws RuntimeException, если происходит ошибка Ввода/Вывода
      */
     public List<String> listOfStrings(String source) {
-        List<String> stringList = new ArrayList<>();
+        StringBuilder builder = read(source);
 
-        try (BufferedReader reader = new BufferedReader(new FileReader(source))) {
-            String line;
+        String[] strings = builder.toString().split("\n");
 
-            while ((line = reader.readLine()) != null) {
-                stringList.add(line);
-            }
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-        return stringList;
+        return new ArrayList<>(List.of(strings));
     }
 
     /**
@@ -253,7 +245,7 @@ public class FileUtil {
             String line;
 
             while ((line = reader.readLine()) != null) {
-                builder.append(line).append(" ");
+                builder.append(line).append("\n");
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
