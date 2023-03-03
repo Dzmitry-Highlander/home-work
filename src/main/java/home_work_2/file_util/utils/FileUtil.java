@@ -60,7 +60,7 @@ public class FileUtil {
         List<String> stringList = new ArrayList<>();
         StringBuilder builder = read(source);
 
-        String[] tmpSubStrings = builder.toString().split("\\s");
+        String[] tmpSubStrings = builder.toString().split("\\W");
 
         for (String word : tmpSubStrings) {
             if (word.charAt(0) == 'a' || word.charAt(0) == 'e' || word.charAt(0) == 'i'
@@ -84,7 +84,7 @@ public class FileUtil {
         List<String> stringList = new ArrayList<>();
         StringBuilder builder = read(source);
 
-        String[] tmpSubStrings = builder.toString().split("\\s");
+        String[] tmpSubStrings = builder.toString().split("\\W");
 
         for (int i = 0; i < tmpSubStrings.length - 1; i++) {
             if (tmpSubStrings[i].toLowerCase().charAt(tmpSubStrings[i].length() - 1)
