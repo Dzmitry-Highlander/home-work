@@ -4,12 +4,16 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-/** Класс утилита для работы с текстовыми файлами
- @author Dzmitry Krasiuk
+/**
+ * Класс утилита для работы с текстовыми файлами
+ *
+ * @author Dzmitry Krasiuk
  */
 public class FileUtil {
-    /** Переписывает содержимое одного файла в другой файл, в ВЕРХНЕМ РЕГИСТРЕ
-     * @param source путь к исходному файлу
+    /**
+     * Переписывает содержимое одного файла в другой файл, в ВЕРХНЕМ РЕГИСТРЕ
+     *
+     * @param source      путь к исходному файлу
      * @param destination путь к результирующему файлу
      * @throws RuntimeException, если происходит ошибка Ввода/Вывода
      */
@@ -33,7 +37,9 @@ public class FileUtil {
         }
     }
 
-    /** Возвращает список строк для файла
+    /**
+     * Возвращает список строк для файла
+     *
      * @param source путь к исходному файлу
      * @return список строк
      * @throws RuntimeException, если происходит ошибка Ввода/Вывода
@@ -54,7 +60,9 @@ public class FileUtil {
         return stringList;
     }
 
-    /** Возвращает список слов начинающихся с гласной буквы
+    /**
+     * Возвращает список слов начинающихся с гласной буквы
+     *
      * @param source путь к исходному файлу
      * @return список слов
      * @throws RuntimeException, если происходит ошибка Ввода/Вывода
@@ -92,7 +100,9 @@ public class FileUtil {
         return stringList;
     }
 
-    /** Возвращает список слов, для которых последняя буква совпадает с первой буквой следующего за ним слова
+    /**
+     * Возвращает список слов, для которых последняя буква совпадает с первой буквой следующего за ним слова
+     *
      * @param source путь к исходному файлу
      * @return список слов
      * @throws RuntimeException, если происходит ошибка Ввода/Вывода
@@ -114,13 +124,66 @@ public class FileUtil {
         String[] tmpSubStrings = tmp.toString().split("\\s");
 
         for (int i = 0; i < tmpSubStrings.length - 1; i++) {
-            if (tmpSubStrings[i].toLowerCase().charAt(tmpSubStrings[i].length() - 1) ==
-                    tmpSubStrings[i + 1].toLowerCase().charAt(0)) {
+            if (tmpSubStrings[i].toLowerCase().charAt(tmpSubStrings[i].length() - 1)
+                    == tmpSubStrings[i + 1].toLowerCase().charAt(0)) {
                 stringList.add(tmpSubStrings[i]);
             }
         }
 
         System.out.println(stringList);
+        return stringList;
+    }
+
+    /**
+     * Возвращает список наибольшей комбинации цифр для каждой строки, которые идут в порядке возрастания
+     *
+     * @param source путь к исходному файлу
+     * @return список цифр
+     * @throws RuntimeException, если происходит ошибка Ввода/Вывода
+     */
+    public List<String> maxCombination(String source) {
+        List<String> stringList = new ArrayList<>();
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(source))) {
+            String symbol;
+
+            while ((symbol = reader.readLine()) != null) {
+                ArrayList<Integer> arrayList = new ArrayList<>();
+                String[] strings = symbol.split("\\s");
+
+                for (String string : strings) {
+                    if (string.charAt(0) >= '0' && string.charAt(0) <= '9') {
+                        arrayList.add(Integer.valueOf(string));
+                    }
+                }
+
+                String result = "";
+                StringBuilder tmp = new StringBuilder();
+
+                if (arrayList.size() > 0) {
+                    boolean newSeq = true;
+
+                    for (int i = 1; i < arrayList.size(); i++) {
+                        if (arrayList.get(i) <= arrayList.get(i - 1)) {
+                            newSeq = true;
+                        } else if (arrayList.get(i) > arrayList.get(i - 1) && newSeq) {
+                            tmp.append(arrayList.get(i - 1)).append(" ").append(arrayList.get(i));
+                            newSeq = false;
+                        } else if (arrayList.get(i) > arrayList.get(i - 1) && !newSeq) {
+                            tmp.append(" ").append(arrayList.get(i));
+                            if (tmp.toString().length() >= result.length()) {
+                                result = tmp.toString();
+                            }
+                        }
+                    }
+                }
+
+                if (result.length() > 0)stringList.add(result);
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
         return stringList;
     }
 }
