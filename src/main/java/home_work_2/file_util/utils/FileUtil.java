@@ -17,20 +17,10 @@ public class FileUtil {
      * @throws RuntimeException, если происходит ошибка Ввода/Вывода
      */
     public void copyContentInUpperReg(String source, String destination) {
-        StringBuilder result = new StringBuilder();
-
-        try (BufferedReader reader = new BufferedReader(new FileReader(source))) {
-            String symbol;
-
-            while ((symbol = reader.readLine()) != null) {
-                result.append(symbol).append("\n");
-            }
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        StringBuilder builder = read(source);
 
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(destination))) {
-            writer.write(result.toString().toUpperCase());
+            writer.write(builder.toString().toUpperCase());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -47,10 +37,10 @@ public class FileUtil {
         List<String> stringList = new ArrayList<>();
 
         try (BufferedReader reader = new BufferedReader(new FileReader(source))) {
-            String symbol;
+            String line;
 
-            while ((symbol = reader.readLine()) != null) {
-                stringList.add(symbol);
+            while ((line = reader.readLine()) != null) {
+                stringList.add(line);
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -68,19 +58,9 @@ public class FileUtil {
      */
     public List<String> listOfVowelWords(String source) {
         List<String> stringList = new ArrayList<>();
-        StringBuilder tmp = new StringBuilder();
+        StringBuilder builder = read(source);
 
-        try (BufferedReader reader = new BufferedReader(new FileReader(source))) {
-            String symbol;
-
-            while ((symbol = reader.readLine()) != null) {
-                tmp.append(symbol).append("\n");
-            }
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-        String[] tmpSubStrings = tmp.toString().split("\\s");
+        String[] tmpSubStrings = builder.toString().split("\\s");
 
         for (String word : tmpSubStrings) {
             if (word.charAt(0) == 'a' || word.charAt(0) == 'e' || word.charAt(0) == 'i'
@@ -102,19 +82,9 @@ public class FileUtil {
      */
     public List<String> listOfCoincidences(String source) {
         List<String> stringList = new ArrayList<>();
-        StringBuilder tmp = new StringBuilder();
+        StringBuilder builder = read(source);
 
-        try (BufferedReader reader = new BufferedReader(new FileReader(source))) {
-            String symbol;
-
-            while ((symbol = reader.readLine()) != null) {
-                tmp.append(symbol).append("\n");
-            }
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-        String[] tmpSubStrings = tmp.toString().split("\\s");
+        String[] tmpSubStrings = builder.toString().split("\\s");
 
         for (int i = 0; i < tmpSubStrings.length - 1; i++) {
             if (tmpSubStrings[i].toLowerCase().charAt(tmpSubStrings[i].length() - 1)
@@ -137,11 +107,11 @@ public class FileUtil {
         List<String> stringList = new ArrayList<>();
 
         try (BufferedReader reader = new BufferedReader(new FileReader(source))) {
-            String symbol;
+            String line;
 
-            while ((symbol = reader.readLine()) != null) {
+            while ((line = reader.readLine()) != null) {
                 ArrayList<Integer> arrayList = new ArrayList<>();
-                String[] strings = symbol.split("\\W");
+                String[] strings = line.split("\\W");
 
                 for (String string : strings) {
                     if (string.charAt(0) >= '0' && string.charAt(0) <= '9') {
@@ -187,31 +157,21 @@ public class FileUtil {
      */
     public Map<Character, Integer> frequencyLetters(String source) {
         Map<Character, Integer> map = new HashMap<>();
+        StringBuilder builder = read(source);
 
-        try (BufferedReader reader = new BufferedReader(new FileReader(source))) {
-            String symbol;
-            StringBuilder builder = new StringBuilder();
+        String[] strings = builder.toString().toLowerCase().split("");
+        char letter = 'a';
+        int counter = 0;
 
-            while ((symbol = reader.readLine()) != null) {
-                builder.append(symbol).append("\n");
-            }
-
-            String[] strings = builder.toString().toLowerCase().split("");
-            char letter = 'a';
-            int counter = 0;
-
-            while (letter <= 'z') {
-                for (String ch : strings) {
-                    if (letter == ch.charAt(0)) {
-                        map.put(letter, ++counter);
-                    }
+        while (letter <= 'z') {
+            for (String ch : strings) {
+                if (letter == ch.charAt(0)) {
+                    map.put(letter, ++counter);
                 }
-
-                letter++;
-                counter = 0;
             }
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+
+            letter++;
+            counter = 0;
         }
 
         return map;
@@ -224,38 +184,81 @@ public class FileUtil {
      * @return HashMap с повторяемостью каждой буквы в тексте
      * @throws RuntimeException, если происходит ошибка Ввода/Вывода
      */
-
     public Map<String, Integer> frequencyWords(String source) {
         Map<String, Integer> map = new HashMap<>();
+        StringBuilder builder = read(source);
+
+        String[] strings = builder.toString().toLowerCase().split("\\W");
+        String word = "";
+        int counter = 0;
+
+        do {
+            for (String s : strings) {
+                word = s;
+                for (String string : strings) {
+                    if (Objects.equals(string, word)) {
+                        map.put(word, ++counter);
+                    }
+                }
+
+                counter = 0;
+            }
+        } while (!Objects.equals(word, strings[strings.length - 1]));
+
+        return map;
+    }
+
+    /**
+     * Сортирует содержимое файла по возрастанию и сохраняющий результат в файл ${origin_filepath}_
+     *
+     * @param source путь к исходному файлу
+     * @throws RuntimeException, если происходит ошибка Ввода/Вывода
+     */
+    public void fileSorting(String source) {
+        StringBuilder builder = read(source);
+
+        String[] strings = builder.toString().split("\\W");
+        int[] integers = new int[strings.length];
+
+        for (int i = 0; i < strings.length; i++) {
+            integers[i] = Integer.parseInt(strings[i]);
+        }
+
+        Arrays.sort(integers);
+
+        builder = new StringBuilder();
+
+        for (int integer : integers) {
+            builder.append(integer).append(" ");
+        }
+
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(source + "_"))) {
+                writer.write(builder.toString().trim());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
+     * Сортирует содержимое файла по возрастанию и сохраняющий результат в файл ${origin_filepath}_
+     *
+     * @param source путь к исходному файлу
+     * @throws RuntimeException, если происходит ошибка Ввода/Вывода
+     */
+
+    private StringBuilder read(String source) {
+        StringBuilder builder = new StringBuilder();
 
         try (BufferedReader reader = new BufferedReader(new FileReader(source))) {
-            String symbol;
-            StringBuilder builder = new StringBuilder();
+            String line;
 
-            while ((symbol = reader.readLine()) != null) {
-                builder.append(symbol).append("\n");
+            while ((line = reader.readLine()) != null) {
+                builder.append(line).append(" ");
             }
-
-            String[] strings = builder.toString().toLowerCase().split("\\W");
-            String word = "";
-            int counter = 0;
-
-            do {
-                for (String s : strings) {
-                    word = s;
-                    for (String string : strings) {
-                        if (Objects.equals(string, word)) {
-                            map.put(word, ++counter);
-                        }
-                    }
-
-                    counter = 0;
-                }
-            } while (!Objects.equals(word, strings[strings.length - 1]));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
 
-        return map;
+        return builder;
     }
 }
