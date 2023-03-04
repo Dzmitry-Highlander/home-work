@@ -34,9 +34,7 @@ public class FileUtil {
      * @throws RuntimeException, если происходит ошибка Ввода/Вывода
      */
     public List<String> listOfStrings(String source) {
-        StringBuilder builder = read(source);
-
-        String[] strings = builder.toString().split("\n");
+        String[] strings = read(source).toString().split("\n");
 
         return new ArrayList<>(List.of(strings));
     }
@@ -50,9 +48,7 @@ public class FileUtil {
      */
     public List<String> listOfVowelWords(String source) {
         List<String> stringList = new ArrayList<>();
-        StringBuilder builder = read(source);
-
-        String[] tmpSubStrings = builder.toString().split("\\W");
+        String[] tmpSubStrings = read(source).toString().split("\\W");
 
         for (String word : tmpSubStrings) {
             if (word.charAt(0) == 'a' || word.charAt(0) == 'e' || word.charAt(0) == 'i'
@@ -74,9 +70,7 @@ public class FileUtil {
      */
     public List<String> listOfCoincidences(String source) {
         List<String> stringList = new ArrayList<>();
-        StringBuilder builder = read(source);
-
-        String[] tmpSubStrings = builder.toString().split("\\W");
+        String[] tmpSubStrings = read(source).toString().split("\\W");
 
         for (int i = 0; i < tmpSubStrings.length - 1; i++) {
             if (tmpSubStrings[i].toLowerCase().charAt(tmpSubStrings[i].length() - 1)
@@ -97,45 +91,7 @@ public class FileUtil {
      */
     public List<String> maxCombination(String source) {
         List<String> stringList = new ArrayList<>();
-
-        try (BufferedReader reader = new BufferedReader(new FileReader(source))) {
-            String line;
-
-            while ((line = reader.readLine()) != null) {
-                ArrayList<Integer> arrayList = new ArrayList<>();
-                String[] strings = line.split("\\W");
-
-                for (String string : strings) {
-                    if (string.charAt(0) >= '0' && string.charAt(0) <= '9') {
-                        arrayList.add(Integer.valueOf(string));
-                    }
-                }
-
-                String result = "";
-                StringBuilder tmp = new StringBuilder();
-
-                if (arrayList.size() > 0) {
-                    boolean newSeq = true;
-
-                    for (int i = 1; i < arrayList.size(); i++) {
-                        if (arrayList.get(i) <= arrayList.get(i - 1)) {
-                            newSeq = true;
-                        } else if (arrayList.get(i) > arrayList.get(i - 1) && newSeq) {
-                            tmp.append(arrayList.get(i - 1)).append(" ").append(arrayList.get(i));
-                            newSeq = false;
-                        } else if (arrayList.get(i) > arrayList.get(i - 1) && !newSeq) {
-                            tmp.append(" ").append(arrayList.get(i));
-                        }
-                    }
-
-                    System.out.println(tmp);
-                }
-
-                if (result.length() > 0)stringList.add(result);
-            }
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        StringBuilder builder = read(source);
 
         return stringList;
     }
@@ -149,9 +105,8 @@ public class FileUtil {
      */
     public Map<Character, Integer> frequencyLetters(String source) {
         Map<Character, Integer> map = new HashMap<>();
-        StringBuilder builder = read(source);
+        String[] strings = read(source).toString().toLowerCase().split("");
 
-        String[] strings = builder.toString().toLowerCase().split("");
         char letter = 'a';
         int counter = 0;
 
@@ -178,9 +133,8 @@ public class FileUtil {
      */
     public Map<String, Integer> frequencyWords(String source) {
         Map<String, Integer> map = new HashMap<>();
-        StringBuilder builder = read(source);
+        String[] strings = read(source).toString().toLowerCase().split("\\W");
 
-        String[] strings = builder.toString().toLowerCase().split("\\W");
         String word = "";
         int counter = 0;
 
@@ -207,9 +161,8 @@ public class FileUtil {
      * @throws RuntimeException, если происходит ошибка Ввода/Вывода
      */
     public void fileSorting(String source) {
-        StringBuilder builder = read(source);
-
-        String[] strings = builder.toString().split("\\W");
+        StringBuilder builder = new StringBuilder();
+        String[] strings = read(source).toString().split("\\W");
         int[] integers = new int[strings.length];
 
         for (int i = 0; i < strings.length; i++) {
@@ -217,8 +170,6 @@ public class FileUtil {
         }
 
         Arrays.sort(integers);
-
-        builder = new StringBuilder();
 
         for (int integer : integers) {
             builder.append(integer).append(" ");
@@ -237,6 +188,30 @@ public class FileUtil {
      * @param source путь к исходному файлу
      * @throws RuntimeException, если происходит ошибка Ввода/Вывода
      */
+    public Map<String, Double> studentsAvg(String source) {
+        Map<String, Double> map = new HashMap<>();
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(source))) {
+            String line;
+
+            while ((line = reader.readLine()) != null) {
+                String[] strings = line.split("\\W+");
+                double avgMark = 0.0;
+
+                for (int i = 1; i < strings.length; i++) {
+                    avgMark += Integer.parseInt(strings[i]);
+                }
+
+                avgMark = avgMark / (strings.length - 1);
+
+                map.put(strings[0], Math.round(avgMark * 100.0) / 100.0);
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        return map;
+    }
 
     private StringBuilder read(String source) {
         StringBuilder builder = new StringBuilder();
