@@ -48,13 +48,10 @@ public class FileUtil {
      */
     public List<String> listOfVowelWords(String source) {
         List<String> stringList = new ArrayList<>();
-        String[] tmpSubStrings = read(source).toString().split("\\W");
+        String[] tmpSubStrings = read(source).toString().split("\\W+");
 
         for (String word : tmpSubStrings) {
-            if (word.charAt(0) == 'a' || word.charAt(0) == 'e' || word.charAt(0) == 'i'
-                    || word.charAt(0) == 'o' || word.charAt(0) == 'u' || word.charAt(0) == 'y' || word.charAt(0) == 'A'
-                    || word.charAt(0) == 'E' || word.charAt(0) == 'I' || word.charAt(0) == 'O' || word.charAt(0) == 'U'
-                    || word.charAt(0) == 'Y') {
+            if (word.toLowerCase().substring(0, 1).matches("[aeiouy]")) {
                 stringList.add(word);
             }
         }
@@ -89,9 +86,46 @@ public class FileUtil {
      * @return список цифр
      * @throws RuntimeException, если происходит ошибка Ввода/Вывода
      */
-    public List<String> maxCombination(String source) {
+    public List<String> longestSequence(String source) {
         List<String> stringList = new ArrayList<>();
-        StringBuilder builder = read(source);
+
+        try (BufferedReader reader = new BufferedReader(new FileReader(source))) {
+            String line;
+
+            while ((line = reader.readLine()) != null) {
+                String[] strings = line.split("\\W");
+                int[] integers = new int[strings.length];
+
+                for (int i = 0; i < strings.length; i++) {
+                    integers[i] = Integer.parseInt(strings[i]);
+                }
+
+                StringBuilder stringBuf = new StringBuilder();
+                String stringFinal = "";
+                boolean newSeq = true;
+
+                for (int i = 1; i < integers.length; i++) {
+                    if (integers[i] <= integers[i - 1]) {
+                        newSeq = true;
+                    } else if (integers[i] > integers[i - 1] && newSeq && integers[i] - integers[i -1] == 1) {
+                        stringBuf.append(integers[i - 1]).append(" ").append(integers[i]).append(" ");
+                        newSeq = false;
+                    } else if (!newSeq && integers[i] > integers[i - 1] && integers[i] - integers[i - 1] == 1) {
+                        stringBuf.append(integers[i]);
+
+                        if (stringBuf.toString().length() > stringFinal.length()) {
+                            stringFinal = stringBuf.toString();
+                        }
+
+                        stringBuf = new StringBuilder();
+                    }
+                }
+
+                stringList.add(stringFinal);
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
         return stringList;
     }
@@ -183,9 +217,10 @@ public class FileUtil {
     }
 
     /**
-     * Сортирует содержимое файла по возрастанию и сохраняющий результат в файл ${origin_filepath}_
+     * Возвращает успеваемость студентов
      *
      * @param source путь к исходному файлу
+     * @return Map со списком фамилий и средним баллом
      * @throws RuntimeException, если происходит ошибка Ввода/Вывода
      */
     public Map<String, Double> studentsAvg(String source) {
@@ -211,6 +246,22 @@ public class FileUtil {
         }
 
         return map;
+    }
+
+    /**
+     * Возвращает успеваемость студентов
+     *
+     * @param source путь к исходному файлу
+     * @param existingModifier путь к исходному файлу
+     * @param newModifier путь к исходному файлу
+     * @throws RuntimeException, если происходит ошибка Ввода/Вывода
+     */
+    public void javaCode(String source, String existingModifier, String newModifier) {
+        String[] strings = read(source).toString().split("\n");
+
+        for (String string : strings) {
+
+        }
     }
 
     private StringBuilder read(String source) {
