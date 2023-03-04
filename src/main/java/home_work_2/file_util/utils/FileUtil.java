@@ -259,8 +259,16 @@ public class FileUtil {
     public void javaCode(String source, String existingModifier, String newModifier) {
         String[] strings = read(source).toString().split("\n");
 
-        for (String string : strings) {
+        for (int i = 0; i < strings.length; i++) {
+            strings[i] = strings[i].replaceAll(existingModifier, newModifier);
+        }
 
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(source + "_"))) {
+            for (String string : strings) {
+                writer.write(string + "\n");
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 
