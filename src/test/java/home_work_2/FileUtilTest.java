@@ -4,9 +4,7 @@ import home_work_2.file_util.utils.FileUtil;
 import org.junit.jupiter.api.*;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 public class FileUtilTest {
     private FileUtil fileUtil;
@@ -71,6 +69,37 @@ public class FileUtilTest {
     public void listOfCoincidencesTest() {
         List<String> result = fileUtil.listOfCoincidences("source.txt");
         List<String> expected = new ArrayList<>(List.of("New"));
+
+        Assertions.assertEquals(expected, result);
+    }
+
+    @DisplayName("Task 5, Возвращает список слов, для которых последняя буква совпадает с первой буквой следующего " +
+            "за ним слова")
+    @Test
+    public void longestSequenceTest() {
+        List<String> result = fileUtil.listOfCoincidences("source.txt");
+        List<String> expected = new ArrayList<>(List.of("New"));
+
+        Assertions.assertEquals(expected, result);
+    }
+
+    @DisplayName("Task 6, Возвращает список слов, для которых последняя буква совпадает с первой буквой следующего " +
+            "за ним слова")
+    @Test
+    public void frequencyLettersTest() {
+        Map<Character, Integer> result = fileUtil.frequencyLetters("source.txt");
+        Map<Character, Integer> part1 = new HashMap<>(Map.of(
+                'a', 12, 'c', 8, 'd', 7, 'e', 28, 'f', 4, 'g', 6,
+                'h', 7, 'i', 17, 'j', 1, 'k', 1));
+        Map<Character, Integer> part2 = new HashMap<>(Map.of(
+                'l', 9, 'm', 11, 'n', 16, 'o', 19, 'p', 1, 'r', 16,
+                's', 16, 't', 13, 'u', 4, 'v', 3));
+        Map<Character, Integer> part3 = new HashMap<>(Map.of(
+                'w', 2, 'y', 12));
+        Map<Character, Integer> expected = new HashMap<>();
+        expected.putAll(part1);
+        expected.putAll(part2);
+        expected.putAll(part3);
 
         Assertions.assertEquals(expected, result);
     }
