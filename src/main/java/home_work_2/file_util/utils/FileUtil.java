@@ -189,7 +189,7 @@ public class FileUtil {
 
         map.entrySet()
                 .stream()
-                .sorted(Map.Entry.<String, Integer>comparingByValue().reversed())
+                .sorted(Map.Entry.comparingByValue())
                 .forEach(entry -> sortedMap.put(entry.getKey(), entry.getValue()));
 
         return sortedMap;
