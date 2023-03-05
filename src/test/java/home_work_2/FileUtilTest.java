@@ -13,6 +13,7 @@ public class FileUtilTest {
     static void setFile() {
         File text = new File("source.txt");
         File list = new File("list.txt");
+        File java = new File("java.txt");
 
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(text))){
             writer.write("Hi! Nice to meet you! My name is John Smith. I am 19 and a student in college. I go to " +
@@ -25,6 +26,18 @@ public class FileUtilTest {
 
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(list))){
             writer.write("1 2 1 2 3 \n 67 68 69 23");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(java))){
+            writer.write("public class FileUtilDemo {\n" +
+                    "    public static void main(String[] args) {\n" +
+                    "        FileUtil fileUtil = new FileUtil();\n" +
+                    "\n" +
+                    "        System.out.println(fileUtil.listOfVowelWords(\"src/README.txt\"));\n" +
+                    "    }\n" +
+                    "}");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
