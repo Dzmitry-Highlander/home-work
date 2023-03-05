@@ -93,30 +93,23 @@ public class FileUtil {
             String line;
 
             while ((line = reader.readLine()) != null) {
-                String[] strings = line.split("\\W+");
-                int[] integers = new int[strings.length];
-
-                for (int i = 0; i < strings.length; i++) {
-                    integers[i] = Integer.parseInt(strings[i]);
-                }
-
                 StringBuilder string = new StringBuilder();
-                boolean newSeq = true;
+                boolean newSequence = true;
+                int[] integers = Arrays.stream(line.split("\\W+")).mapToInt(Integer::parseInt).toArray();
 
                 for (int i = 1; i < integers.length; i++) {
                     if (integers[i] <= integers[i - 1]) {
-                        newSeq = true;
+                        newSequence = true;
                     } else {
                         boolean diff = integers[i] - integers[i - 1] == 1;
-                        if (integers[i] > integers[i - 1] && diff && newSeq) {
+                        if (integers[i] > integers[i - 1] && diff && newSequence) {
                             string.append(" ").append(integers[i - 1]).append(",").append(integers[i]);
-                            newSeq = false;
-                        } else if (integers[i] > integers[i - 1] && diff && !newSeq) {
+                            newSequence = false;
+                        } else if (integers[i] > integers[i - 1] && diff && !newSequence) {
                             string.append(",").append(integers[i]);
                         }
                     }
                 }
-
                 List<String> list = Arrays.asList(string.toString().trim().split(" "));
 
                 int maxLength = list.get(0).length();
