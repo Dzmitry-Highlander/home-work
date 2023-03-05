@@ -90,18 +90,28 @@ public class FileUtilTest {
         Map<Character, Integer> result = fileUtil.frequencyLetters("source.txt");
         Map<Character, Integer> part1 = new HashMap<>(Map.of(
                 'a', 12, 'c', 8, 'd', 7, 'e', 28, 'f', 4, 'g', 6,
-                'h', 7, 'i', 17, 'j', 1, 'k', 1));
+                'h', 7, 'i', 17, 'j', 1, 'k', 1
+        ));
         Map<Character, Integer> part2 = new HashMap<>(Map.of(
                 'l', 9, 'm', 11, 'n', 16, 'o', 19, 'p', 1, 'r', 16,
-                's', 16, 't', 13, 'u', 4, 'v', 3));
+                's', 16, 't', 13, 'u', 4, 'v', 3
+        ));
         Map<Character, Integer> part3 = new HashMap<>(Map.of(
-                'w', 2, 'y', 12));
+                'w', 2, 'y', 12
+        ));
         Map<Character, Integer> expected = new HashMap<>();
         expected.putAll(part1);
         expected.putAll(part2);
         expected.putAll(part3);
 
         Assertions.assertEquals(expected, result);
+    }
+
+    @DisplayName("Task 7, Возвращает частоту повторяемости всех слов в тексте в порядке возрастания частоты " +
+            "повторяемости")
+    @Test
+    public void frequencyWordsTest() {
+        System.out.println(fileUtil.frequencyWords("source.txt"));
     }
 
     private StringBuilder read(String source) {

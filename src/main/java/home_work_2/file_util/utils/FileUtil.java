@@ -162,12 +162,14 @@ public class FileUtil {
      * Возвращает частоту повторяемости всех слов в тексте в порядке возрастания частоты повторяемости
      *
      * @param source путь к исходному файлу
-     * @return HashMap с повторяемостью каждой буквы в тексте
+     * @return TreeMap с повторяемостью каждой буквы в тексте
      * @throws RuntimeException, если происходит ошибка Ввода/Вывода
      */
     public Map<String, Integer> frequencyWords(String source) {
         Map<String, Integer> map = new HashMap<>();
-        String[] strings = read(source).toString().toLowerCase().split("\\W");
+        Map<String, Integer> sortedMap = new LinkedHashMap<>();
+        String[] strings = read(source).toString().toLowerCase().split("\\W+");
+
 
         String word = "";
         int counter = 0;
@@ -185,7 +187,12 @@ public class FileUtil {
             }
         } while (!Objects.equals(word, strings[strings.length - 1]));
 
-        return map;
+        map.entrySet()
+                .stream()
+                .sorted(Map.Entry.<String, Integer>comparingByValue().reversed())
+                .forEach(entry -> sortedMap.put(entry.getKey(), entry.getValue()));
+
+        return sortedMap;
     }
 
     /**
