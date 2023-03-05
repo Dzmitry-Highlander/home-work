@@ -67,12 +67,12 @@ public class FileUtil {
      */
     public List<String> listOfCoincidences(String source) {
         List<String> stringList = new ArrayList<>();
-        String[] tmpSubStrings = read(source).toString().split("\\W");
+        String[] strings = read(source).toString().split("\\W+");
 
-        for (int i = 0; i < tmpSubStrings.length - 1; i++) {
-            if (tmpSubStrings[i].toLowerCase().charAt(tmpSubStrings[i].length() - 1)
-                    == tmpSubStrings[i + 1].toLowerCase().charAt(0)) {
-                stringList.add(tmpSubStrings[i]);
+        for (int i = 1; i < strings.length; i++) {
+            if (strings[i].toLowerCase().charAt(0)
+                    == strings[i - 1].toLowerCase().charAt(strings[i - 1].length() - 1)) {
+                stringList.add(strings[i]);
             }
         }
 

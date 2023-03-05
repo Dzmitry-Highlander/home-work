@@ -65,6 +65,16 @@ public class FileUtilTest {
         Assertions.assertEquals(expected, result);
     }
 
+    @DisplayName("Task 4, Возвращает список слов, для которых последняя буква совпадает с первой буквой следующего " +
+            "за ним слова")
+    @Test
+    public void listOfCoincidencesTest() {
+        List<String> result = fileUtil.listOfCoincidences("source.txt");
+        List<String> expected = new ArrayList<>(List.of("New"));
+
+        Assertions.assertEquals(expected, result);
+    }
+
     private StringBuilder read(String source) {
         StringBuilder builder = new StringBuilder();
 
