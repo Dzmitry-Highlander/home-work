@@ -1,6 +1,7 @@
 package home_work_2.file_util.utils;
 
 import java.io.*;
+import java.nio.file.Path;
 import java.util.*;
 
 /**
@@ -196,14 +197,14 @@ public class FileUtil {
     }
 
     /**
-     * Сортирует содержимое файла по возрастанию и сохраняющий результат в файл ${origin_filepath}_
+     * Сортирует содержимое файла по возрастанию и сохраняет результат в файл ${origin_filepath}_
      *
      * @param source путь к исходному файлу
      * @throws RuntimeException, если происходит ошибка Ввода/Вывода
      */
     public void fileSorting(String source) {
         StringBuilder builder = new StringBuilder();
-        String[] strings = read(source).toString().split("\\W");
+        String[] strings = read(source).toString().split("\\W+");
         int[] integers = new int[strings.length];
 
         for (int i = 0; i < strings.length; i++) {
@@ -271,7 +272,7 @@ public class FileUtil {
             strings[i] = strings[i].replaceAll(existingModifier, newModifier);
         }
 
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(source + "_"))) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(source))) {
             for (String string : strings) {
                 writer.write(string + "\n");
             }
