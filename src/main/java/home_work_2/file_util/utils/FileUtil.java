@@ -93,35 +93,40 @@ public class FileUtil {
             String line;
 
             while ((line = reader.readLine()) != null) {
-                String[] strings = line.split("\\W");
+                String[] strings = line.split("\\W+");
                 int[] integers = new int[strings.length];
 
                 for (int i = 0; i < strings.length; i++) {
                     integers[i] = Integer.parseInt(strings[i]);
                 }
 
-                StringBuilder stringBuf = new StringBuilder();
-                String stringFinal = "";
+                StringBuilder string = new StringBuilder();
                 boolean newSeq = true;
 
                 for (int i = 1; i < integers.length; i++) {
                     if (integers[i] <= integers[i - 1]) {
                         newSeq = true;
-                    } else if (integers[i] > integers[i - 1] && newSeq && integers[i] - integers[i -1] == 1) {
-                        stringBuf.append(integers[i - 1]).append(" ").append(integers[i]).append(" ");
-                        newSeq = false;
-                    } else if (!newSeq && integers[i] > integers[i - 1] && integers[i] - integers[i - 1] == 1) {
-                        stringBuf.append(integers[i]);
-
-                        if (stringBuf.toString().length() > stringFinal.length()) {
-                            stringFinal = stringBuf.toString();
+                    } else {
+                        boolean diff = integers[i] - integers[i - 1] == 1;
+                        if (integers[i] > integers[i - 1] && diff && newSeq) {
+                            string.append(" ").append(integers[i - 1]).append(",").append(integers[i]);
+                            newSeq = false;
+                        } else if (integers[i] > integers[i - 1] && diff && !newSeq) {
+                            string.append(",").append(integers[i]);
                         }
-
-                        stringBuf = new StringBuilder();
                     }
                 }
 
-                stringList.add(stringFinal);
+                List<String> list = Arrays.asList(string.toString().trim().split(" "));
+
+                int maxLength = list.get(0).length();
+                for (String sequence : list)
+                    if (sequence.length() > maxLength)
+                        maxLength = sequence.length();
+
+                for (String s : list)
+                    if (s.length() == maxLength)
+                        stringList.add(s);
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
