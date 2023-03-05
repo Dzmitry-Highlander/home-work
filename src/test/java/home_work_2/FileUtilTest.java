@@ -66,8 +66,8 @@ public class FileUtilTest {
             "следующего за ним слова")
     @Test
     public void longestSequenceTest() {
-        List<String> result = fileUtil.listOfCoincidences("src/test/java/resources/source.txt");
-        List<String> expected = new ArrayList<>(List.of("New"));
+        List<String> result = fileUtil.longestSequence("src/test/java/resources/list.txt");
+        List<String> expected = new ArrayList<>(List.of("1,2,3", "67,68,69"));
 
         Assertions.assertEquals(expected, result);
     }
@@ -125,7 +125,7 @@ public class FileUtilTest {
         fileUtil.fileSorting("src/test/java/resources/list.txt");
 
         String result = read("src/test/java/resources/list.txt" + "_").toString();
-        String expected = "1 1 2 2 3 23 67 68 69";
+        String expected = "1 1 2 2 3 23 61 67 68 69";
 
         Assertions.assertEquals(expected, result);
     }
