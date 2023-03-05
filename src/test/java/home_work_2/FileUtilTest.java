@@ -7,53 +7,19 @@ import java.io.*;
 import java.util.*;
 
 public class FileUtilTest {
-    private FileUtil fileUtil;
+    private static FileUtil fileUtil;
 
     @BeforeAll
     static void setFile() {
-        File text = new File("source.txt");
-        File list = new File("list.txt");
-        File java = new File("java.txt");
-
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(text))){
-            writer.write("Hi! Nice to meet you! My name is John Smith. I am 19 and a student in college. I go to " +
-                    "college in New York. My favorite courses are Geometry, French, and History. English is my " +
-                    "hardest course. My professors are very friendly and smart. It’s my second year in college now. " +
-                    "I love it!");
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(list))){
-            writer.write("1 2 1 2 3 \n 67 68 69 23");
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(java))){
-            writer.write("public class FileUtilDemo {\n" +
-                    "    public static void main(String[] args) {\n" +
-                    "        FileUtil fileUtil = new FileUtil();\n" +
-                    "\n" +
-                    "        System.out.println(fileUtil.listOfVowelWords(\"src/README.txt\"));\n" +
-                    "    }\n" +
-                    "}");
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    @BeforeEach
-    void init() {
         fileUtil = new FileUtil();
     }
 
-    @DisplayName("Task 1, Переписывает содержимое одного файла в другой файл, в ВЕРХНЕМ РЕГИСТРЕ")
+    @DisplayName("Task 1, Test, Переписывает содержимое одного файла в другой файл, в ВЕРХНЕМ РЕГИСТРЕ")
     @Test
     public void copyContentInUpperRegTest() {
-        fileUtil.copyContentInUpperReg("source.txt", "result.txt");
+        fileUtil.copyContentInUpperReg("../source.txt", "../result.txt");
 
-        String result = read("result.txt").toString();
+        String result = read("../result.txt").toString();
         String expected = "HI! NICE TO MEET YOU! MY NAME IS JOHN SMITH. I AM 19 AND A STUDENT IN COLLEGE. I GO TO " +
                 "COLLEGE IN NEW YORK. MY FAVORITE COURSES ARE GEOMETRY, FRENCH, AND HISTORY. ENGLISH IS MY HARDEST " +
                 "COURSE. MY PROFESSORS ARE VERY FRIENDLY AND SMART. IT’S MY SECOND YEAR IN COLLEGE NOW. I LOVE IT!";
@@ -61,10 +27,10 @@ public class FileUtilTest {
         Assertions.assertEquals(expected, result);
     }
 
-    @DisplayName("Task 2, Возвращает список строк для файла")
+    @DisplayName("Task 2, Test, Возвращает список строк для файла")
     @Test
     public void listOfStringsTest() {
-        List<String> result = fileUtil.listOfStrings("source.txt");
+        List<String> result = fileUtil.listOfStrings("../source.txt");
         List<String> expected = new ArrayList<>(Collections.singleton("Hi! Nice to meet you! My name is John Smith. " +
                 "I am 19 and a student in college. I go to college in New York. My favorite courses are Geometry, " +
                 "French, and History. English is my hardest course. My professors are very friendly and smart. It’s " +
@@ -73,41 +39,41 @@ public class FileUtilTest {
         Assertions.assertEquals(expected, result);
     }
 
-    @DisplayName("Task 3, Возвращает список слов начинающихся с гласной буквы")
+    @DisplayName("Task 3, Test, Возвращает список слов начинающихся с гласной буквы")
     @Test
     public void listOfVowelWordsTest() {
-        List<String> result = fileUtil.listOfVowelWords("source.txt");
+        List<String> result = fileUtil.listOfVowelWords("../source.txt");
         List<String> expected = new ArrayList<>(List.of("you", "is", "I", "am", "and", "a", "in", "I",
                 "in", "York", "are", "and", "English", "is", "are", "and", "It", "year", "in", "I", "it"));
 
         Assertions.assertEquals(expected, result);
     }
 
-    @DisplayName("Task 4, Возвращает список слов, для которых последняя буква совпадает с первой буквой следующего " +
+    @DisplayName("Task 4, Test, Возвращает список слов, для которых последняя буква совпадает с первой буквой следующего " +
             "за ним слова")
     @Test
     public void listOfCoincidencesTest() {
-        List<String> result = fileUtil.listOfCoincidences("source.txt");
+        List<String> result = fileUtil.listOfCoincidences("../source.txt");
         List<String> expected = new ArrayList<>(List.of("New"));
 
         Assertions.assertEquals(expected, result);
     }
 
-    @DisplayName("Task 5, Возвращает список слов, для которых последняя буква совпадает с первой буквой следующего " +
+    @DisplayName("Task 5, Test, Возвращает список слов, для которых последняя буква совпадает с первой буквой следующего " +
             "за ним слова")
     @Test
     public void longestSequenceTest() {
-        List<String> result = fileUtil.listOfCoincidences("source.txt");
+        List<String> result = fileUtil.listOfCoincidences("../source.txt");
         List<String> expected = new ArrayList<>(List.of("New"));
 
         Assertions.assertEquals(expected, result);
     }
 
-    @DisplayName("Task 6, Возвращает список слов, для которых последняя буква совпадает с первой буквой следующего " +
+    @DisplayName("Task 6, Test, Возвращает список слов, для которых последняя буква совпадает с первой буквой следующего " +
             "за ним слова")
     @Test
     public void frequencyLettersTest() {
-        Map<Character, Integer> result = fileUtil.frequencyLetters("source.txt");
+        Map<Character, Integer> result = fileUtil.frequencyLetters("../source.txt");
         Map<Character, Integer> part1 = new HashMap<>(Map.of(
                 'a', 12, 'c', 8, 'd', 7, 'e', 28, 'f', 4, 'g', 6,
                 'h', 7, 'i', 17, 'j', 1, 'k', 1
@@ -131,16 +97,16 @@ public class FileUtilTest {
             "повторяемости")
     @Test
     public void frequencyWordsTest1() {
-        Assertions.assertTrue(fileUtil.frequencyWords("source.txt").containsKey("my"));
-        Assertions.assertTrue(fileUtil.frequencyWords("source.txt").containsKey("i"));
-        Assertions.assertTrue(fileUtil.frequencyWords("source.txt").containsKey("and"));
+        Assertions.assertTrue(fileUtil.frequencyWords("../source.txt").containsKey("my"));
+        Assertions.assertTrue(fileUtil.frequencyWords("../source.txt").containsKey("i"));
+        Assertions.assertTrue(fileUtil.frequencyWords("../source.txt").containsKey("and"));
     }
 
     @DisplayName("Task 7, Test 2, Возвращает частоту повторяемости всех слов в тексте в порядке возрастания частоты " +
             "повторяемости")
     @Test
     public void frequencyWordsTest2() {
-        String result = Arrays.toString(fileUtil.frequencyWords("source.txt").values().toArray());
+        String result = Arrays.toString(fileUtil.frequencyWords("../source.txt").values().toArray());
         String expected = "[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, " +
                 "1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 5]";
 
