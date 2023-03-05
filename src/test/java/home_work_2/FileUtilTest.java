@@ -11,13 +11,20 @@ public class FileUtilTest {
 
     @BeforeAll
     static void setFile() {
-        File file = new File("source.txt");
+        File text = new File("source.txt");
+        File list = new File("list.txt");
 
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))){
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(text))){
             writer.write("Hi! Nice to meet you! My name is John Smith. I am 19 and a student in college. I go to " +
                     "college in New York. My favorite courses are Geometry, French, and History. English is my " +
                     "hardest course. My professors are very friendly and smart. It’s my second year in college now. " +
                     "I love it!");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(list))){
+            writer.write("1 2 1 2 3 \n 67 68 69 23");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -107,11 +114,24 @@ public class FileUtilTest {
         Assertions.assertEquals(expected, result);
     }
 
-    @DisplayName("Task 7, Возвращает частоту повторяемости всех слов в тексте в порядке возрастания частоты " +
+    @DisplayName("Task 7, Test 1, Возвращает частоту повторяемости всех слов в тексте в порядке возрастания частоты " +
             "повторяемости")
     @Test
-    public void frequencyWordsTest() {
-        System.out.println(fileUtil.frequencyWords("source.txt"));
+    public void frequencyWordsTest1() {
+        Assertions.assertTrue(fileUtil.frequencyWords("source.txt").containsKey("my"));
+        Assertions.assertTrue(fileUtil.frequencyWords("source.txt").containsKey("i"));
+        Assertions.assertTrue(fileUtil.frequencyWords("source.txt").containsKey("and"));
+    }
+
+    @DisplayName("Task 7, Test 2, Возвращает частоту повторяемости всех слов в тексте в порядке возрастания частоты " +
+            "повторяемости")
+    @Test
+    public void frequencyWordsTest2() {
+        String result = Arrays.toString(fileUtil.frequencyWords("source.txt").values().toArray());
+        String expected = "[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, " +
+                "1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 5]";
+
+        Assertions.assertEquals(expected, result);
     }
 
     private StringBuilder read(String source) {
