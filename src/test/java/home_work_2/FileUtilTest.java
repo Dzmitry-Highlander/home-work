@@ -140,6 +140,24 @@ public class FileUtilTest {
         Assertions.assertEquals(expected, result);
     }
 
+    @DisplayName("Task 10, Test, заменяет все модификаторы доступа X в объявлении атрибутов и методов класса на Y и " +
+            "сохраняет результат в файл ${origin_filepath}_")
+    @Test
+    public void javaCodeTest() {
+        fileUtil.javaCode("src/test/java/resources/java.txt", "public", "private");
+
+        String result = read("src/test/java/resources/java.txt" + "_").toString();
+        String expected = "private class FileUtilDemo {" +
+                "    private static void main(String[] args) {" +
+                "        FileUtil fileUtil = new FileUtil();" +
+                "" +
+                "        System.out.println(fileUtil.listOfVowelWords(\"src/README.txt\"));" +
+                "    }" +
+                "}";
+
+        Assertions.assertEquals(expected, result);
+    }
+
     private StringBuilder read(String source) {
         StringBuilder builder = new StringBuilder();
 

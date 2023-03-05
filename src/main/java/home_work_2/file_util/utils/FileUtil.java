@@ -1,7 +1,6 @@
 package home_work_2.file_util.utils;
 
 import java.io.*;
-import java.nio.file.Path;
 import java.util.*;
 
 /**
@@ -257,7 +256,7 @@ public class FileUtil {
     }
 
     /**
-     * Заменяет все модификаторы доступа X в объявлении атрибутов и методов класса на Y и сохраняющий результат в
+     * Заменяет все модификаторы доступа X в объявлении атрибутов и методов класса на Y и сохраняет результат в
      * файл ${origin_filepath}_
      *
      * @param source путь к исходному файлу
@@ -272,7 +271,7 @@ public class FileUtil {
             strings[i] = strings[i].replaceAll(existingModifier, newModifier);
         }
 
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(source))) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(source + "_"))) {
             for (String string : strings) {
                 writer.write(string + "\n");
             }
