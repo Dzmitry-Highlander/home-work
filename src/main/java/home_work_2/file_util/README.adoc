@@ -30,9 +30,9 @@ private StringBuilder read(String source) {
 
 Метод `listOfStrings(String source)`, который принимает путь к файлу и возвращает список строк этого файла. Где *source* - путь к исходному файлу.
 
-=== Specification of task 3
+=== Task 3
 
-Реализовать метод, который принимает путь к файлу. Метод возвращает список слов начинающихся с гласной буквы.
+Метод `listOfStrings(String source)`, возвращает список слов начинающихся с гласной буквы. Где *source* - путь к исходному файлу.
 
 === Specification of task 4
 
