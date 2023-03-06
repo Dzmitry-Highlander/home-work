@@ -109,7 +109,7 @@ public class FileUtil {
      * @throws RuntimeException, если происходит ошибка Ввода/Вывода
      */
     public static List<String> longestSequence(String source) {
-        List<String> stringList = new ArrayList<>();
+        List<String> longestSequencesList  = new ArrayList<>();
 
         try (BufferedReader reader = new BufferedReader(new FileReader(source))) {
             String line;
@@ -132,22 +132,22 @@ public class FileUtil {
                         }
                     }
                 }
-                List<String> list = Arrays.asList(string.toString().trim().split(" "));
+                List<String> sequncesList = Arrays.asList(string.toString().trim().split(" "));
 
-                int maxLength = list.get(0).length();
-                for (String sequence : list)
+                int maxLength = sequncesList.get(0).length();
+                for (String sequence : sequncesList)
                     if (sequence.length() > maxLength)
                         maxLength = sequence.length();
 
-                for (String s : list)
+                for (String s : sequncesList)
                     if (s.length() == maxLength)
-                        stringList.add(s);
+                        longestSequencesList.add(s);
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
 
-        return stringList;
+        return longestSequencesList;
     }
 
     /**
