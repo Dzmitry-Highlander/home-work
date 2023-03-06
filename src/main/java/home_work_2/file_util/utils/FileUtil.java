@@ -34,9 +34,7 @@ public class FileUtil {
      * @throws RuntimeException, если происходит ошибка Ввода/Вывода
      */
     public static List<String> listOfStrings(String source) {
-        String[] strings = read(source).toString().split("\n");
-
-        return new ArrayList<>(List.of(strings));
+        return new ArrayList<>(List.of(read(source).toString().split("\n")));
     }
 
     /**
