@@ -80,13 +80,22 @@ public class FileUtil {
      */
     public static List<String> listOfCoincidences(String source) {
         List<String> stringList = new ArrayList<>();
-        String[] strings = read(source).toString().split("\\W+");
 
-        for (int i = 1; i < strings.length; i++) {
-            if (strings[i].toLowerCase().charAt(0)
-                    == strings[i - 1].toLowerCase().charAt(strings[i - 1].length() - 1)) {
-                stringList.add(strings[i]);
+        try (BufferedReader reader = new BufferedReader(new FileReader(source))) {
+            String line;
+
+            while ((line = reader.readLine()) != null) {
+                String[] tmpSubStrings = line.split("\\W+");
+
+                for (int i = 1; i < tmpSubStrings.length; i++) {
+                    if (tmpSubStrings[i].toLowerCase().charAt(0)
+                            == tmpSubStrings[i - 1].toLowerCase().charAt(tmpSubStrings[i - 1].length() - 1)) {
+                        stringList.add(tmpSubStrings[i]);
+                    }
+                }
             }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
 
         return stringList;
