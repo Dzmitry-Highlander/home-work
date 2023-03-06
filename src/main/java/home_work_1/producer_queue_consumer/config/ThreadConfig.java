@@ -12,19 +12,14 @@ public class ThreadConfig {
 
     public ThreadConfig(Integer nThreads) {
         this.nThreads = nThreads;
-        this.queue = new PriorityBlockingQueue<>();
+        this.queue = new LinkedBlockingQueue<>();
     }
 
     public void start() {
         ExecutorService executor = Executors.newFixedThreadPool(
                 nThreads);
 
-        Future<?> future = executor.submit(new ProducerSupplier(queue));
-        try {
-            future.get();
-        } catch (InterruptedException | ExecutionException e) {
-            System.out.println(e.getMessage());
-        }
+        executor.execute(new ProducerSupplier(queue));
 
         for (; nThreads > 0; nThreads--) {
             executor.execute(new ConsumerJob(queue));
