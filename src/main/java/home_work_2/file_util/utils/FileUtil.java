@@ -17,10 +17,16 @@ public class FileUtil {
      * @throws RuntimeException, если происходит ошибка Ввода/Вывода
      */
     public static void copyContentInUpperReg(String source, String destination) {
-        StringBuilder builder = read(source);
+        try (BufferedReader reader = new BufferedReader(new FileReader(source));
+             BufferedWriter writer = new BufferedWriter(new FileWriter(destination))) {
+            StringBuilder builder = new StringBuilder();
+            String line;
 
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(destination))) {
-            writer.write(builder.toString().toUpperCase());
+            while ((line = reader.readLine()) != null) {
+                builder.append(line).append("\n");
+                writer.write(builder.toString().toUpperCase());
+                builder = new StringBuilder();
+            }
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
