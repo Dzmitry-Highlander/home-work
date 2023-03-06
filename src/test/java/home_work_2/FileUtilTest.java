@@ -7,17 +7,10 @@ import java.io.*;
 import java.util.*;
 
 public class FileUtilTest {
-    private static FileUtil fileUtil;
-
-    @BeforeAll
-    static void setFile() {
-        fileUtil = new FileUtil();
-    }
-
     @DisplayName("Task 1, Test, Переписывает содержимое одного файла в другой файл, в ВЕРХНЕМ РЕГИСТРЕ")
     @Test
     public void copyContentInUpperRegTest() {
-        fileUtil.copyContentInUpperReg(
+        FileUtil.copyContentInUpperReg(
                 "src/test/java/resources/source.txt",
                 "src/test/java/resources/result.txt"
         );
@@ -33,7 +26,7 @@ public class FileUtilTest {
     @DisplayName("Task 2, Test, Возвращает список строк для файла")
     @Test
     public void listOfStringsTest() {
-        List<String> result = fileUtil.listOfStrings("src/test/java/resources/source.txt");
+        List<String> result = FileUtil.listOfStrings("src/test/java/resources/source.txt");
         List<String> expected = new ArrayList<>(Collections.singleton("Hi! Nice to meet you! My name is John Smith. " +
                 "I am 19 and a student in college. I go to college in New York. My favorite courses are Geometry, " +
                 "French, and History. English is my hardest course. My professors are very friendly and smart. It’s " +
@@ -45,7 +38,7 @@ public class FileUtilTest {
     @DisplayName("Task 3, Test, Возвращает список слов начинающихся с гласной буквы")
     @Test
     public void listOfVowelWordsTest() {
-        List<String> result = fileUtil.listOfVowelWords("src/test/java/resources/source.txt");
+        List<String> result = FileUtil.listOfVowelWords("src/test/java/resources/source.txt");
         List<String> expected = new ArrayList<>(List.of("you", "is", "I", "am", "and", "a", "in", "I",
                 "in", "York", "are", "and", "English", "is", "are", "and", "It", "year", "in", "I", "it"));
 
@@ -56,7 +49,7 @@ public class FileUtilTest {
             "следующего за ним слова")
     @Test
     public void listOfCoincidencesTest() {
-        List<String> result = fileUtil.listOfCoincidences("src/test/java/resources/source.txt");
+        List<String> result = FileUtil.listOfCoincidences("src/test/java/resources/source.txt");
         List<String> expected = new ArrayList<>(List.of("New"));
 
         Assertions.assertEquals(expected, result);
@@ -66,7 +59,7 @@ public class FileUtilTest {
             "следующего за ним слова")
     @Test
     public void longestSequenceTest() {
-        List<String> result = fileUtil.longestSequence("src/test/java/resources/list.txt");
+        List<String> result = FileUtil.longestSequence("src/test/java/resources/list.txt");
         List<String> expected = new ArrayList<>(List.of("1,2,3", "67,68,69"));
 
         Assertions.assertEquals(expected, result);
@@ -76,7 +69,7 @@ public class FileUtilTest {
             "следующего за ним слова")
     @Test
     public void frequencyLettersTest() {
-        Map<Character, Integer> result = fileUtil.frequencyLetters("src/test/java/resources/source.txt");
+        Map<Character, Integer> result = FileUtil.frequencyLetters("src/test/java/resources/source.txt");
         Map<Character, Integer> part1 = new HashMap<>(Map.of(
                 'a', 12, 'c', 8, 'd', 7, 'e', 28, 'f', 4, 'g', 6,
                 'h', 7, 'i', 17, 'j', 1, 'k', 1
@@ -100,9 +93,9 @@ public class FileUtilTest {
             "повторяемости")
     @Test
     public void frequencyWordsTest1() {
-        Assertions.assertTrue(fileUtil.frequencyWords("src/test/java/resources/source.txt").containsKey("my"));
-        Assertions.assertTrue(fileUtil.frequencyWords("src/test/java/resources/source.txt").containsKey("i"));
-        Assertions.assertTrue(fileUtil.frequencyWords("src/test/java/resources/source.txt").containsKey("and"));
+        Assertions.assertTrue(FileUtil.frequencyWords("src/test/java/resources/source.txt").containsKey("my"));
+        Assertions.assertTrue(FileUtil.frequencyWords("src/test/java/resources/source.txt").containsKey("i"));
+        Assertions.assertTrue(FileUtil.frequencyWords("src/test/java/resources/source.txt").containsKey("and"));
     }
 
     @DisplayName("Task 7, Test 2, Возвращает частоту повторяемости всех слов в тексте в порядке возрастания частоты " +
@@ -110,7 +103,7 @@ public class FileUtilTest {
     @Test
     public void frequencyWordsTest2() {
         String result = Arrays.toString(
-                fileUtil.frequencyWords("src/test/java/resources/source.txt").values().toArray(
+                FileUtil.frequencyWords("src/test/java/resources/source.txt").values().toArray(
                 ));
         String expected = "[1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, " +
                 "1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 5]";
@@ -122,7 +115,7 @@ public class FileUtilTest {
             "в файл ${origin_filepath}_")
     @Test
     public void fileSortingTest() {
-        fileUtil.fileSorting("src/test/java/resources/list.txt");
+        FileUtil.fileSorting("src/test/java/resources/list.txt");
 
         String result = read("src/test/java/resources/list.txt" + "_").toString();
         String expected = "1 1 2 2 3 23 61 67 68 69";
@@ -133,7 +126,7 @@ public class FileUtilTest {
     @DisplayName("Task 9, Test, возвращает успеваемость студентов")
     @Test
     public void studentsAvgTest() {
-        Map<String, Double> result = fileUtil.studentsAvg("src/test/java/resources/students.txt");
+        Map<String, Double> result = FileUtil.studentsAvg("src/test/java/resources/students.txt");
         Map<String, Double> expected = new HashMap<>(Map.of("Krasiuk", 8.5, "Rakovets", 8.0,
                 "Putin", 1.67));
 
@@ -144,7 +137,7 @@ public class FileUtilTest {
             "сохраняет результат в файл ${origin_filepath}_")
     @Test
     public void javaCodeTest() {
-        fileUtil.javaCode("src/test/java/resources/java.txt", "public", "private");
+        FileUtil.javaCode("src/test/java/resources/java.txt", "public", "private");
 
         String result = read("src/test/java/resources/java.txt" + "_").toString();
         String expected = "private class FileUtilDemo {" +

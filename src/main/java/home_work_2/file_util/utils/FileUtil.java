@@ -16,7 +16,7 @@ public class FileUtil {
      * @param destination путь к результирующему файлу
      * @throws RuntimeException, если происходит ошибка Ввода/Вывода
      */
-    public void copyContentInUpperReg(String source, String destination) {
+    public static void copyContentInUpperReg(String source, String destination) {
         StringBuilder builder = read(source);
 
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(destination))) {
@@ -33,7 +33,7 @@ public class FileUtil {
      * @return список строк
      * @throws RuntimeException, если происходит ошибка Ввода/Вывода
      */
-    public List<String> listOfStrings(String source) {
+    public static List<String> listOfStrings(String source) {
         String[] strings = read(source).toString().split("\n");
 
         return new ArrayList<>(List.of(strings));
@@ -46,7 +46,7 @@ public class FileUtil {
      * @return список слов
      * @throws RuntimeException, если происходит ошибка Ввода/Вывода
      */
-    public List<String> listOfVowelWords(String source) {
+    public static List<String> listOfVowelWords(String source) {
         List<String> stringList = new ArrayList<>();
         String[] tmpSubStrings = read(source).toString().split("\\W+");
 
@@ -65,7 +65,7 @@ public class FileUtil {
      * @return список слов
      * @throws RuntimeException, если происходит ошибка Ввода/Вывода
      */
-    public List<String> listOfCoincidences(String source) {
+    public static List<String> listOfCoincidences(String source) {
         List<String> stringList = new ArrayList<>();
         String[] strings = read(source).toString().split("\\W+");
 
@@ -86,7 +86,7 @@ public class FileUtil {
      * @return список цифр
      * @throws RuntimeException, если происходит ошибка Ввода/Вывода
      */
-    public List<String> longestSequence(String source) {
+    public static List<String> longestSequence(String source) {
         List<String> stringList = new ArrayList<>();
 
         try (BufferedReader reader = new BufferedReader(new FileReader(source))) {
@@ -135,7 +135,7 @@ public class FileUtil {
      * @return HashMap с повторяемостью каждой буквы в тексте
      * @throws RuntimeException, если происходит ошибка Ввода/Вывода
      */
-    public Map<Character, Integer> frequencyLetters(String source) {
+    public static Map<Character, Integer> frequencyLetters(String source) {
         Map<Character, Integer> map = new HashMap<>();
         String[] strings = read(source).toString().toLowerCase().split("");
 
@@ -163,7 +163,7 @@ public class FileUtil {
      * @return TreeMap с повторяемостью каждой буквы в тексте
      * @throws RuntimeException, если происходит ошибка Ввода/Вывода
      */
-    public Map<String, Integer> frequencyWords(String source) {
+    public static Map<String, Integer> frequencyWords(String source) {
         Map<String, Integer> map = new HashMap<>();
         Map<String, Integer> sortedMap = new LinkedHashMap<>();
         String[] strings = read(source).toString().toLowerCase().split("\\W+");
@@ -199,7 +199,7 @@ public class FileUtil {
      * @param source путь к исходному файлу
      * @throws RuntimeException, если происходит ошибка Ввода/Вывода
      */
-    public void fileSorting(String source) {
+    public static void fileSorting(String source) {
         StringBuilder builder = new StringBuilder();
         String[] strings = read(source).toString().split("\\W+");
         int[] integers = new int[strings.length];
@@ -228,7 +228,7 @@ public class FileUtil {
      * @return Map со списком фамилий и средним баллом
      * @throws RuntimeException, если происходит ошибка Ввода/Вывода
      */
-    public Map<String, Double> studentsAvg(String source) {
+    public static Map<String, Double> studentsAvg(String source) {
         Map<String, Double> map = new HashMap<>();
 
         try (BufferedReader reader = new BufferedReader(new FileReader(source))) {
@@ -262,7 +262,7 @@ public class FileUtil {
      * @param newModifier путь к исходному файлу
      * @throws RuntimeException, если происходит ошибка Ввода/Вывода
      */
-    public void javaCode(String source, String existingModifier, String newModifier) {
+    public static void javaCode(String source, String existingModifier, String newModifier) {
         String[] strings = read(source).toString().split("\n");
 
         for (int i = 0; i < strings.length; i++) {
@@ -278,7 +278,7 @@ public class FileUtil {
         }
     }
 
-    private StringBuilder read(String source) {
+    private static StringBuilder read(String source) {
         StringBuilder builder = new StringBuilder();
 
         try (BufferedReader reader = new BufferedReader(new FileReader(source))) {
