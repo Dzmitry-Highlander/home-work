@@ -48,12 +48,21 @@ public class FileUtil {
      */
     public static List<String> listOfVowelWords(String source) {
         List<String> stringList = new ArrayList<>();
-        String[] tmpSubStrings = read(source).toString().split("\\W+");
 
-        for (String word : tmpSubStrings) {
-            if (word.toLowerCase().substring(0, 1).matches("[aeiouy]")) {
-                stringList.add(word);
+        try (BufferedReader reader = new BufferedReader(new FileReader(source))) {
+            String line;
+
+            while ((line = reader.readLine()) != null) {
+                String[] tmpSubStrings = line.split("\\W+");
+
+                for (String word : tmpSubStrings) {
+                    if (word.toLowerCase().substring(0, 1).matches("[aeiouy]")) {
+                        stringList.add(word);
+                    }
+                }
             }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
 
         return stringList;
