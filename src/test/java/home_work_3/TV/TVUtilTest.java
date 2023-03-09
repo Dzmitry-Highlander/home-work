@@ -77,4 +77,76 @@ public class TVUtilTest {
 
         Assertions.assertFalse(result.containsAll(expected));
     }
+
+    @DisplayName("TVUtil.getTVOlderThanYear() Test 5, return TV's list which not older than given year")
+    @Test
+    void getTVNotOlderThanYearTest5() {
+        List<TV> result = TVUtil.getTVNotOlderThanYear(tvList, 2022);
+        List<TV> expected = new ArrayList<>(List.of(
+                new TV("Samsung", "QE65QN90BAUXCE", 2022, 65, 6200.00),
+                new TV("LG", "55NANO766QA", 2022, 55, 1985.00),
+                new TV("LG", "50UQ80006LB", 2022, 50, 1794.97)
+        ));
+
+        Assertions.assertTrue(result.containsAll(expected));
+    }
+
+    @DisplayName("TVUtil.getTVOlderThanYear() Test 6, return TV's list which not older than given year")
+    @Test
+    void getTVNotOlderThanYearTest6() {
+        List<TV> result = TVUtil.getTVNotOlderThanYear(tvList, 2022);
+        List<TV> expected = new ArrayList<>(List.of(
+                new TV("Samsung", "QE65QN90BAUXCE", 2022, 65, 6200.00),
+                new TV("LG", "55NANO766QA", 2022, 55, 1985.00),
+                new TV("LG", "50UQ80006LB", 2022, 50, 1794.97),
+                new TV("Samsung", "QE43QN90AAU", 2021, 43, 3510.00)
+        ));
+
+        Assertions.assertFalse(result.containsAll(expected));
+    }
+
+    @DisplayName("TVUtil.getTVByPriceRange() Test 7, return TV's list with given price range")
+    @Test
+    void getTVByPriceRangeTest7() {
+        List<TV> result = TVUtil.getTVByPriceRange(tvList, 5000, 7000);
+        List<TV> expected = new ArrayList<>(List.of(
+                new TV("Samsung", "QE65QN90BAUXCE", 2022, 65, 6200.00)
+        ));
+
+        Assertions.assertTrue(result.containsAll(expected));
+    }
+
+    @DisplayName("TVUtil.getTVByPriceRange() Test 8, return TV's list with given price range")
+    @Test
+    void getTVByPriceRangeTest8() {
+        List<TV> result = TVUtil.getTVByPriceRange(tvList, 5000, 7000);
+        List<TV> expected = new ArrayList<>(List.of(
+                new TV("Samsung", "QE65QN90BAUXCE", 2022, 65, 6200.00),
+                new TV("LG", "55NANO766QA", 2022, 55, 1985.00),
+                new TV("LG", "50UQ80006LB", 2022, 50, 1794.97),
+                new TV("Samsung", "QE43QN90AAU", 2021, 43, 3510.00)
+        ));
+
+        Assertions.assertFalse(result.containsAll(expected));
+    }
+
+    @DisplayName("TVUtil.getTVOlderThanYear() Test 9, return TV's list with TV's sorted by price")
+    @Test
+    void getTVByPriceTest9() {
+        List<TV> result = TVUtil.getTVByPrice(tvList, true);
+
+        Assertions.assertEquals(
+                new TV("Samsung", "UE43T5300AUXRU", 2020, 43, 1727.90),
+                result.get(0));
+    }
+
+    @DisplayName("TVUtil.getTVOlderThanYear() Test 10, return TV's list with TV's sorted by price")
+    @Test
+    void getTVByPriceTest10() {
+        List<TV> result = TVUtil.getTVByPrice(tvList, false);
+
+        Assertions.assertEquals(
+                new TV("Samsung", "QE65QN90BAUXCE", 2022, 65, 6200.00),
+                result.get(0));
+    }
 }

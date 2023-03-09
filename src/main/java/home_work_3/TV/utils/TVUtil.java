@@ -20,9 +20,9 @@ public class TVUtil {
                 .collect(Collectors.toList());
     }
 
-    public static List<TV> getTVOlderThanYear(List<TV> list, int year) {
+    public static List<TV> getTVNotOlderThanYear(List<TV> list, int year) {
         return list.stream()
-                .filter(n -> n.getModelYear() > year)
+                .filter(n -> n.getModelYear() >= year)
                 .collect(Collectors.toList());
     }
 
