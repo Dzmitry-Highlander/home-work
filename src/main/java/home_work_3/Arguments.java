@@ -3,8 +3,8 @@ package home_work_3;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Task1 {
-    public Map<String, String> getArguments(String[] strings) {
+public class Arguments {
+    public static Map<String, String> getArguments(String[] strings) {
         Map<String, String> map = new HashMap<>();
 
         Runnable runnable = () -> {
