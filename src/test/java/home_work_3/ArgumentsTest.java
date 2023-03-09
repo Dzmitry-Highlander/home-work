@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 import java.util.Map;
 
 public class ArgumentsTest {
-    static String[] argumentsAndValues;
+    private static String[] argumentsAndValues;
 
     @BeforeAll
     static void init() {

@@ -1,4 +1,4 @@
-package home_work_3.math_statistic;
+package home_work_3.math_statistic.utils;
 
 import home_work_3.math_statistic.enums.Params;
 
@@ -17,7 +17,7 @@ public class MathStatUtil {
         return numbers;
     }
 
-    public static void count(int[] numbers, int someValue) {
+    public static String count(int[] numbers, int someValue) {
         StringBuilder builder = new StringBuilder();
 
         Runnable runnable = () -> {
@@ -29,15 +29,15 @@ public class MathStatUtil {
                 }
             }
 
-            builder.append("Равных ").append(someValue).append(": ").append(value);
-
-            System.out.println(builder);
+            builder.append("Equals ").append(someValue).append(" count: ").append(value);
         };
 
         runnable.run();
+
+        return builder.toString();
     }
 
-    public static void count(int[] numbers, Params params) {
+    public static String count(int[] numbers, Params params) {
         StringBuilder builder = new StringBuilder();
 
         Runnable runnable = () -> {
@@ -48,9 +48,9 @@ public class MathStatUtil {
             for (int number : numbers) {
                 if (number == 0 && params == Params.ZERO_EQUALS) {
                     zero++;
-                } else if (number % 2 == 0  && params == Params.EVEN) {
+                } else if (number != 0 && number % 2 == 0  && params == Params.EVEN) {
                     even++;
-                } else if (number % 2 != 0  && params == Params.ODD) {
+                } else if (number % 2 != 0 && params == Params.ODD) {
                     odd++;
                 }
             }
@@ -62,10 +62,10 @@ public class MathStatUtil {
             } else if (params == Params.ODD) {
                 builder.append("Odd count ").append(odd);
             }
-
-            System.out.println(builder);
         };
 
         runnable.run();
+
+        return builder.toString();
     }
 }
