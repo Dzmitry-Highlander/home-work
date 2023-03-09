@@ -1,4 +1,4 @@
-package home_work_3.city_helper;
+package home_work_3.city_helper.utils;
 
 import home_work_3.city_helper.enums.Params;
 

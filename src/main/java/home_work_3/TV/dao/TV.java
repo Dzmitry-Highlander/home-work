@@ -1,4 +1,4 @@
-package home_work_3.TV;
+package home_work_3.TV.dao;
 
 import java.util.Objects;
 
