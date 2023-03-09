@@ -47,7 +47,7 @@ public class TVUtil {
         return result;
     }
 
-    public List<TV> getTVByDiagonal(List<TV> list, boolean diagonalAscending) {
+    public static List<TV> getTVByDiagonal(List<TV> list, boolean diagonalAscending) {
         List<TV> result;
         if (diagonalAscending) {
             result = list.stream()

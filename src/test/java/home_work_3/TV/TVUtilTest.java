@@ -130,7 +130,7 @@ public class TVUtilTest {
         Assertions.assertFalse(result.containsAll(expected));
     }
 
-    @DisplayName("TVUtil.getTVOlderThanYear() Test 9, return TV's list with TV's sorted by price")
+    @DisplayName("TVUtil.getTVByPrice() Test 9, return TV's list with TV's sorted by price")
     @Test
     void getTVByPriceTest9() {
         List<TV> result = TVUtil.getTVByPrice(tvList, true);
@@ -140,10 +140,30 @@ public class TVUtilTest {
                 result.get(0));
     }
 
-    @DisplayName("TVUtil.getTVOlderThanYear() Test 10, return TV's list with TV's sorted by price")
+    @DisplayName("TVUtil.getTVByPrice() Test 10, return TV's list with TV's sorted by price")
     @Test
     void getTVByPriceTest10() {
         List<TV> result = TVUtil.getTVByPrice(tvList, false);
+
+        Assertions.assertEquals(
+                new TV("Samsung", "QE65QN90BAUXCE", 2022, 65, 6200.00),
+                result.get(0));
+    }
+
+    @DisplayName("TVUtil.getTVByDiagonal() Test 11, return TV's list with TV's sorted by diagonal")
+    @Test
+    void getTVByDiagonalTest11() {
+        List<TV> result = TVUtil.getTVByDiagonal(tvList, true);
+
+        Assertions.assertEquals(
+                new TV("LG", "43UP77006LB", 2021, 43, 1763.47),
+                result.get(0));
+    }
+
+    @DisplayName("TVUtil.getTVByDiagonal() Test 12, return TV's list with TV's sorted by diagonal")
+    @Test
+    void getTVByDiagonalTest12() {
+        List<TV> result = TVUtil.getTVByDiagonal(tvList, false);
 
         Assertions.assertEquals(
                 new TV("Samsung", "QE65QN90BAUXCE", 2022, 65, 6200.00),
