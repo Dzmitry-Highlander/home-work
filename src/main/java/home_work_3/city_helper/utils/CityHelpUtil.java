@@ -3,6 +3,7 @@ package home_work_3.city_helper.utils;
 import home_work_3.city_helper.enums.Params;
 
 import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class CityHelpUtil {
     public static List<String> getCities(List<String> list, Params params) {
@@ -50,19 +51,19 @@ public class CityHelpUtil {
         return result;
     }
 
-    public static void count(List<String> list, String cityToCount) {
-        Runnable runnable = () -> {
-            int counter = 0;
+    public static int count(List<String> list, String cityToCount) {
+        AtomicInteger counter = new AtomicInteger();
 
+        Runnable runnable = () -> {
             for (String city : list) {
                 if (Objects.equals(city, cityToCount)) {
-                    counter++;
+                    counter.getAndIncrement();
                 }
             }
-
-            System.out.println(cityToCount + " appears in the list " + counter + " times");
         };
 
         runnable.run();
+
+        return counter.get();
     }
 }
