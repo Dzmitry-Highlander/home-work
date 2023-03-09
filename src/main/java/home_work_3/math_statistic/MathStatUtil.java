@@ -1,5 +1,7 @@
 package home_work_3.math_statistic;
 
+import home_work_3.math_statistic.enums.Params;
+
 import java.util.concurrent.ThreadLocalRandom;
 
 public class MathStatUtil {
@@ -19,26 +21,47 @@ public class MathStatUtil {
         StringBuilder builder = new StringBuilder();
 
         Runnable runnable = () -> {
-            int even = 0;
-            int odd = 0;
-            int zero = 0;
             int value = 0;
 
             for (int number : numbers) {
                 if (number == someValue) {
                     value++;
-                } else if (number == 0) {
+                }
+            }
+
+            builder.append("Равных ").append(someValue).append(": ").append(value);
+
+            System.out.println(builder);
+        };
+
+        runnable.run();
+    }
+
+    public static void count(int[] numbers, Params params) {
+        StringBuilder builder = new StringBuilder();
+
+        Runnable runnable = () -> {
+            int even = 0;
+            int odd = 0;
+            int zero = 0;
+
+            for (int number : numbers) {
+                if (number == 0 && params == Params.ZERO_EQUALS) {
                     zero++;
-                } else if (number % 2 == 0) {
+                } else if (number % 2 == 0  && params == Params.EVEN) {
                     even++;
-                } else {
+                } else if (number % 2 != 0  && params == Params.ODD) {
                     odd++;
                 }
             }
 
-            builder.append("Четных: ").append(even).append("\n").append("Нечетных: ").append(odd).append("\n").
-                    append("Равных нулю: ").append(zero).append("\n").append("Равных ").append(someValue).append(": ").
-                    append(value);
+            if (params == Params.ZERO_EQUALS) {
+                builder.append("Zero count ").append(zero);
+            } else if (params == Params.EVEN) {
+                builder.append("Even count ").append(even);
+            } else if (params == Params.ODD) {
+                builder.append("Odd count ").append(odd);
+            }
 
             System.out.println(builder);
         };
