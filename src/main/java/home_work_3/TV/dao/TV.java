@@ -6,10 +6,10 @@ public class TV {
     private final String brand;
     private final String model;
     private final int modelYear;
-    private final double diagonal;
+    private final int diagonal;
     private final double price;
 
-    public TV(String brand, String model, int modelYear, int diagonal, int price) {
+    public TV(String brand, String model, int modelYear, int diagonal, double price) {
         this.brand = brand;
         this.model = model;
         this.modelYear = modelYear;

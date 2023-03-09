@@ -20,7 +20,7 @@ public class CityHelpUtilTest {
         List<String> expected = new ArrayList<>(List.of(
                 new String[]{"Homiel", "Mozyr", "Minsk", "Mogilev", "Brest", "Hrodno", "Vitebsk"}));
 
-        Assertions.assertTrue(expected.containsAll(result));
+        Assertions.assertTrue(result.containsAll(expected));
     }
 
     @DisplayName("CityHelpUtil.getCities() Test 2, with param UNIQUE, return list of unique cities")
@@ -28,9 +28,9 @@ public class CityHelpUtilTest {
     void getCitiesTest2() {
         List<String> result = CityHelpUtil.getCities(citiesList, Params.UNIQUE);
         List<String> expected = new ArrayList<>(List.of(
-                new String[]{"Mozyr", "Minsk", "Mogilev", "Brest", "Hrodno", "Vitebsk"}));
+                new String[]{"Homiel", "Mozyr", "Minsk", "Mogilev", "Brest", "Hrodno", "Mozyr", "Vitebsk", "Minsk"}));
 
-        Assertions.assertFalse(expected.containsAll(result));
+        Assertions.assertNotEquals(result.size(), expected.size());
     }
 
     @DisplayName("CityHelpUtil.getCities() Test 3, with param NAME_LONGER_THAN_6, return list of cities which name " +
@@ -41,7 +41,7 @@ public class CityHelpUtilTest {
         List<String> expected = new ArrayList<>(List.of(
                 new String[]{"Mogilev", "Vitebsk"}));
 
-        Assertions.assertTrue(expected.containsAll(result));
+        Assertions.assertTrue(result.containsAll(expected));
     }
 
     @DisplayName("CityHelpUtil.getCities() Test 4, with param NAME_LONGER_THAN_6, return list of cities which name " +
@@ -52,7 +52,7 @@ public class CityHelpUtilTest {
         List<String> expected = new ArrayList<>(List.of(
                 new String[]{"Mogilev", "Mozyr"}));
 
-        Assertions.assertFalse(expected.containsAll(result));
+        Assertions.assertFalse(result.containsAll(expected));
     }
 
     @DisplayName("CityHelpUtil.getCities() Test 5, return list which starts with specified character")
@@ -62,7 +62,7 @@ public class CityHelpUtilTest {
         List<String> expected = new ArrayList<>(List.of(
                 new String[]{"Mozyr", "Minsk", "Mogilev", "Mozyr", "Minsk"}));
 
-        Assertions.assertTrue(expected.containsAll(result));
+        Assertions.assertTrue(result.containsAll(expected));
     }
 
     @DisplayName("CityHelpUtil.getCities() Test 6, return list which starts with specified character")
@@ -72,7 +72,7 @@ public class CityHelpUtilTest {
         List<String> expected = new ArrayList<>(List.of(
                 new String[]{"Mozyr", "Minsk", "Mogilev", "Mozyr", "Minsk"}));
 
-        Assertions.assertTrue(expected.containsAll(result));
+        Assertions.assertTrue(result.containsAll(expected));
     }
 
     @DisplayName("CityHelpUtil.count() Test 7, return how many times specified city appears in list")
