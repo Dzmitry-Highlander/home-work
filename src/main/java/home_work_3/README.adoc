@@ -38,12 +38,12 @@ Utility class `CityHelpUtil`, реализует следующие методы
 
 Utility class `TVUtil`, реализует следующие методы:
 
-* получение телевизоров:
-** с заданной диагональю
-** какого-то производителя
-** не старше какого-то года
-** с ценой в каком-то диапазоне
-** отсортированные по цене (по возрастанию)
-** отсортированные по цене (по убыванию)
-** отсортированные по диагонали (по возрастанию)
-** отсортированные по диагонали (по убыванию)
+* Получение телевизоров:
+** Метод `getTVByDiagonal(List<TV> list, double diagonal)` с заданной диагональю
+** Метод `getTVByBrand(List<TV> list, String brand)` какого-то производителя
+** Метод `getTVNotOlderThanYear(List<TV> list, int year)` не старше какого-то года
+** Метод `getTVByPriceRange(List<TV> list, double minPrice, double maxPrice)` с ценой в каком-то диапазоне
+** Метод `getTVByPrice(List<TV> list, boolean priceAscending)` отсортированные по цене (по возрастанию), где priceAscending - true
+** Метод `getTVByPrice(List<TV> list, boolean priceAscending)` отсортированные по цене (по убыванию), где priceAscending - false
+** Метод `getTVByDiagonal(List<TV> list, boolean diagonalAscending)` отсортированные по диагонали (по возрастанию), где diagonalAscending - true
+** Метод `getTVByDiagonal(List<TV> list, boolean diagonalAscending)` отсортированные по диагонали (по убыванию), где diagonalAscending - false
