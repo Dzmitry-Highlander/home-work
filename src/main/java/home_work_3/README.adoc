@@ -17,7 +17,12 @@
 
 == Project 'Math’s statistics'
 
-Если пользователь вводит некорректные данные, то поток *Producer* бросает исключение `UserInputException`, но при этом продолжает работать. `UserInputException` является custom исключением, реализованным в классе `UserInputException` в пакете `.exceptions` расширяя класс `Exceptions`.
+Utility class `MathStatUtil`, который реализует следующие методы:
+
+* Метод `generate()` генерация набора случайных целых чисел
+* Подсчет количества:
+** Метод `count(int[] numbers, Params params)` реализует счёт четных, нечетных, равных 0, выбор счёта осуществляется с помощью Enum Params, передачей в метод `EVEN`, `ODD`, `ZERO_EQUALS` соответственно.
+** Метод `count(int[] numbers, int someValue)` реализует счёт чисел равных некоторому значению
 
 == Project 'City Helper'
 
