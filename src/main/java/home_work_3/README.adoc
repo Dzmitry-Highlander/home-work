@@ -29,7 +29,7 @@ Utility class `MathStatUtil`, который реализует следующи
 Utility class `CityHelpUtil`, реализует следующие методы:
 
 * Метод `getCities(List<String> list, Params params)` реализует получение городов исходя из параметра params, выбор осуществляется из Enum Params:
-** Уникальных c параметром `UNIQUE`
+** Уникальных с параметром `UNIQUE`
 ** С названием, которое длиннее шесть символов с параметром `NAME_LONGER_THAN_6`
 * Метод `getCities(List<String> list, char startsFromChar)` получение городов начинающихся на заданную букву
 * Метод `count(List<String> list, String cityToCount)` получение количества употребления конкретного города в списке
