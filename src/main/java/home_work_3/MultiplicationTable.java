@@ -1,22 +1,30 @@
 package home_work_3;
 
+import java.util.stream.IntStream;
+
 public class MultiplicationTable {
-    public static void tableOut() {
-        Runnable runnable = () -> {
-            StringBuilder builder = new StringBuilder();
-            Integer[] numbers = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+    public static void tableOutInOne() {
+        IntStream.rangeClosed(1, 10)
+                .forEach(i -> {
+                    IntStream.rangeClosed(1, 10)
+                            .forEach(j -> System.out.printf("%s * %s = %s\n", i, j, i * j));
+                    System.out.println();
+                });
+    }
 
-            for (Integer integer : numbers) {
-                for (Integer number : numbers) {
-                    builder.append(integer).append(" x ").append(number).append(" = ")
-                            .append(integer * number).append("\n");
-                }
-                builder.append("\n");
-            }
-
-            System.out.println(builder);
-        };
-
-        runnable.run();
+    public static void tableOutInOneInFive() {
+        IntStream.rangeClosed(1, 10)
+                .forEach(i -> {
+                    IntStream.rangeClosed(1, 5)
+                            .forEach(j -> System.out.printf("%s * %s = %s\t", j, i, j * i));
+                    System.out.println();
+                });
+        System.out.println();
+        IntStream.rangeClosed(1, 10)
+                .forEach(i -> {
+                    IntStream.rangeClosed(6, 10)
+                            .forEach(j -> System.out.printf("%s * %s = %s\t", j, i, j * i));
+                    System.out.println();
+                });
     }
 }
