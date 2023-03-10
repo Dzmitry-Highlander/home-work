@@ -12,7 +12,7 @@ public class MultiplicationTable {
                 });
     }
 
-    public static void tableOutInOneInFive() {
+    public static void tableOutInFive() {
         IntStream.rangeClosed(1, 10)
                 .forEach(i -> {
                     IntStream.rangeClosed(1, 5)
