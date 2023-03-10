@@ -1,0 +1,50 @@
+= Homework Lambda Expressions
+
+== Task 1, 2
+
+=== Task 1
+
+Задание выполнено в классе `Arguments`.
+
+* Статический метод `getArguments(String[] strings)` принимает массив строк и возвращающает `Map`, где `key` - название аргумента, `value` - значение аргумента
+* Статический метод convert(Map<String, String> map) конвертирует `Map` с аргументами и их значениями в массив строк
+
+=== Task 2
+
+Задание выполнено в классе `MultiplicationTable`.
+
+* Статический метод `tableOutInOne()` выводит в консоль таблицу умножения от 1 до 10 в 1 столбец
+* Статический метод `tableOutInFive()` выводит в консоль таблицу умножения от 1 до 10 в 5 столбцов
+
+== Project 'Math’s statistics'
+
+Utility class `MathStatUtil`, который реализует следующие методы:
+
+* Метод `generate()` генерация набора случайных целых чисел
+* Подсчет количества:
+** Метод `count(int[] numbers, Params params)` реализует счёт четных, нечетных, равных 0, выбор счёта осуществляется с помощью Enum Params, передачей в метод `EVEN`, `ODD`, `ZERO_EQUALS` соответственно.
+** Метод `count(int[] numbers, int someValue)` реализует счёт чисел равных некоторому значению
+
+== Project 'City Helper'
+
+Utility class `CityHelpUtil`, реализует следующие методы:
+
+* Метод `getCities(List<String> list, Params params)` реализует получение городов исходя из параметра params, выбор осуществляется из Enum Params:
+** Уникальных с параметром `UNIQUE`
+** С названием, которое длиннее шесть символов с параметром `NAME_LONGER_THAN_6`
+* Метод `getCities(List<String> list, char startsFromChar)` получение городов начинающихся на заданную букву
+* Метод `count(List<String> list, String cityToCount)` получение количества употребления конкретного города в списке
+
+== Project 'TV'
+
+Utility class `TVUtil`, реализует следующие методы:
+
+* Получение телевизоров:
+** Метод `getTVByDiagonal(List<TV> list, double diagonal)` с заданной диагональю
+** Метод `getTVByBrand(List<TV> list, String brand)` какого-то производителя
+** Метод `getTVNotOlderThanYear(List<TV> list, int year)` не старше какого-то года
+** Метод `getTVByPriceRange(List<TV> list, double minPrice, double maxPrice)` с ценой в каком-то диапазоне
+** Метод `getTVByPrice(List<TV> list, boolean priceAscending)` отсортированные по цене (по возрастанию), где priceAscending - true
+** Метод `getTVByPrice(List<TV> list, boolean priceAscending)` отсортированные по цене (по убыванию), где priceAscending - false
+** Метод `getTVByDiagonal(List<TV> list, boolean diagonalAscending)` отсортированные по диагонали (по возрастанию), где diagonalAscending - true
+** Метод `getTVByDiagonal(List<TV> list, boolean diagonalAscending)` отсортированные по диагонали (по убыванию), где diagonalAscending - false
