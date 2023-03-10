@@ -1,5 +1,7 @@
 package home_work_3;
 
+import org.w3c.dom.css.Counter;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -26,5 +28,26 @@ public class Arguments {
         runnable.run();
 
         return map;
+    }
+
+    public static String[] convert(Map<String, String> map) {
+        String[] strings = new String[map.size()];
+
+        Runnable runnable = () -> {
+            StringBuilder builder = new StringBuilder();
+            int counter = 0;
+
+            for (Map.Entry<String, String> item : map.entrySet()) {
+                builder.append(item.getKey()).append(" ").append(item.getValue());
+
+                strings[counter] = builder.toString();
+                counter++;
+                builder = new StringBuilder();
+            }
+        };
+
+        runnable.run();
+
+        return strings;
     }
 }
